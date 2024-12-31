@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UWorld to Anki Tag Converter</title>
+    <link rel="stylesheet" href="/UWorld-ID-to-Anki-Tag/static/style.css">
+    <link rel="icon" href="/UWorld-ID-to-Anki-Tag/favicon.png" type="image/png">
+</head>
+<body>
+    <div class="container">
+        <h1>UWorld to Anki Tag Converter</h1>
+
+        <!-- Input Section -->
+        <label for="input_ids">Question IDs (comma-separated):</label>
+        <textarea id="input_ids" rows="4" placeholder="e.g., 23596, 25401, 23175"></textarea>
+
+        <!-- Buttons for Select All/Deselect All -->
+        <div id="selection_buttons">
+            <button id="select_all">Select All</button>
+            <button id="deselect_all">Deselect All</button>
+        </div>
+
+        <!-- Generated Questions -->
+        <div id="question_list"></div>
+
+        <!-- Output Section -->
+        <button id="generate_output">Generate</button>
+        <label for="output_text">Output <span style="opacity:0.7">(paste into Anki browser)</span></label>
+        <textarea id="output_text" rows="5" readonly></textarea>
+    </div>
+
+    <script>
+        const inputField = document.getElementById("input_ids");
+        const questionList = document.getElementById("question_list");
+        const selectAllButton = document.getElementById("select_all");
+        const deselectAllButton = document.getElementById("deselect_all");
+
+        // Update the question list dynamically when input changes
+        inputField.addEventListener("input", updateQuestionList);
+
+        // Event listener for Select All button
+        selectAllButton.addEventListener("click", () => toggleSelection(true));
+
+        // Event listener for Deselect All button
+        deselectAllButton.addEventListener("click", () => toggleSelection(false));
+
+        function updateQuestionList() {
+            questionList.innerHTML = ""; // Clear previous list
+            const inputIDs = inputField.value.trim();
+
+            if (!inputIDs) {
+                return; // Do nothing if input is empty
+            }
+
+            const ids = inputIDs.split(",").map(id => id.trim()).filter(id => id);
+            ids.forEach((id, index) => {
+                const label = document.createElement("label");
+                label.innerHTML = `
+                    <input type="checkbox" value="${id}">
+                    <span class="number">${index + 1})</span>
+                    <span class="space"> </span> 
+                    <span class="id">${id}</span>`;
+                questionList.appendChild(label);
+                questionList.appendChild(document.createElement("br"));
+            });
+        }
+
+        function toggleSelection(selectAll) {
+            const checkboxes = questionList.querySelectorAll("input[type='checkbox']");
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = selectAll;
+            });
+        }
+
+        // Generate the output when "Generate" is clicked
+        document.getElementById("generate_output").addEventListener("click", () => {
+            const inputIDs = inputField.value.trim();
+            const selectedIDs = Array.from(document.querySelectorAll("#question_list input:checked"))
+                                       .map(input => input.value);
+
+            if (!selectedIDs.length) {
+                alert("No IDs selected for output.");
+                return;
+            }
+
+            // Create output as Anki tags
+            const output = selectedIDs.map(id => `tag:*${id}*`).join(" OR ");
+            document.getElementById("output_text").value = output;
+        });
+    </script>
+</body>
+</html>

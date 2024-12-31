@@ -1,0 +1,145 @@
+body {
+    font-family: "Rubik", -apple-system, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    margin: 20px;
+    padding: 1px;
+    max-width: -webkit-fill-available;
+    background-color: aliceblue;
+}
+
+.container {
+    max-width: 98vw;
+    margin: 3% auto;
+    padding: 2%;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; /* Stacks items vertically */
+    align-items: unset; /* Centers items horizontally */
+    gap: 3px; /* Adds consistent spacing */
+}
+
+h1 {
+    text-align: center;
+    color: #333333;
+    padding: 1%;
+}
+
+label {
+    font-weight: bold;
+    margin: 0;
+    display: block;
+    padding: 1px;
+}
+
+textarea {
+    width: 95%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1%;
+    max-width: -webkit-fill-available;
+}
+
+/* Fix all divs to maintain consistent height */
+div {
+    position: relative; /* Prevents hover effects from changing layout */
+    min-height: 50px; /* Set a minimum height for all divs */
+    margin: 10px 0; /* Space around divs */
+}
+
+/* Button Styles */
+button {
+    background-color: #007bff;
+    display: inline-flex;
+    gap: 10px;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 105%;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative; /* Lock button in place */
+    box-sizing: border-box; /* Ensure padding and border don't affect size */
+    z-index: 1; /* Ensure hover effects stay above other elements */
+    margin: 10px;
+}
+
+/* Hover effect without shifting elements */
+button:hover {
+    background-color: #0c66c6;
+    color: offwhite;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(2px); /* Hover effect without affecting layout */
+}
+
+div#selection_buttons {
+    margin: 0 0 1px 0;
+    margin-top: 4px;
+    padding: 10;
+}
+
+button#generate_output {
+    margin: 0 auto;
+}
+
+/* Specific section styling */
+div#mode_section {
+    padding: 10px;
+    margin-right: 20px;
+}
+
+#mode_section label {
+    display: inline-block;
+    margin-top: 20px;
+}
+
+/* Container for question list */
+div#question_list {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping of items to next row */
+    gap: 10px; /* Space between items */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    overflow-y: hidden; /* Disable vertical overflow */
+    width: 95%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #b7d7fa;
+    border-radius: 10px;
+    min-height: 100px; /* Set a fixed height */
+}
+
+/* Styling for each individual label (checkbox item) */
+#question_list label {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    padding: 2px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    width: calc(10% + 40px); /* 10 questions per row, adjust the width accordingly */
+    min-width: 150px;
+    word-wrap: break-word; /* Break long words if necessary */
+    max-height: 38px;
+    padding: 8px 2px;
+}
+
+/* Ensures the checkboxes and text are aligned correctly */
+#question_list input[type="checkbox"] {
+    margin-right: 10px; /* Space between checkbox and text */
+}
+
+/* Styling for the question number */
+.number {
+    margin-right: 8px; /* Adjust the space between the number and ID */
+}
+
+.id {
+    opacity: 0.7; /* Maintain the desired opacity for the question ID */
+}
