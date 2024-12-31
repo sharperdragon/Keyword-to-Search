@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UWorld to Anki Tag Converter</title>
+    <title>Anki Easy Search</title>
     <link rel="stylesheet" href="/UWorld-ID-to-Anki-Tag/static/style.css">
     <link rel="icon" href="/UWorld-ID-to-Anki-Tag/favicon.png" type="image/png">
 </head>
@@ -12,8 +12,8 @@
         <h1>UWorld to Anki Tag Converter</h1>
 
         <!-- Input Section -->
-        <label for="input_ids">Question IDs (comma-separated):</label>
-        <textarea id="input_ids" rows="4" placeholder="e.g., 23596, 25401, 23175"></textarea>
+        <label for="input_ids">Keywords (comma-separated):</label>
+        <textarea id="input_ids" rows="4" placeholder="e.g., anti-Jo1, coronary artery, BRCA1..."></textarea>
 
         <!-- Buttons for Select All/Deselect All -->
         <div id="selection_buttons">
@@ -85,7 +85,7 @@
             }
 
             // Create output as Anki tags
-            const output = selectedIDs.map(id => `tag:*${id}*`).join(" OR ");
+            const output = selectedIDs.map(id => `"Text:*${id}*"`).join(" OR ");
             document.getElementById("output_text").value = output;
         });
     </script>
