@@ -118,13 +118,13 @@ div#question_list {
     align-items: center;
     justify-content: flex-start;
     box-sizing: border-box;
-    padding: 2px;
+    padding: 1px 2px;
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 5px;
     cursor: pointer;
-    width: calc(10% + 40px); /* 10 questions per row, adjust the width accordingly */
-    min-width: fit-content;
+    width: fit-content; /* 10 questions per row, adjust the width accordingly */
+    min-width: 230px;
     word-wrap: normal; /* Break long words if necessary */
     max-height: 38px;
     padding: 8px 2px;
