@@ -84,8 +84,18 @@
                 return;
             }
 
-            // Create output as Anki tags
-            const output = selectedIDs.map(id => `"Text:*${id}*"`).join(" OR ");
+            // Create output with the new formatting for terms with spaces
+            const output = selectedIDs.map(id => {
+                const words = id.split(" "); // Split by space
+                if (words.length > 1) {
+                    // Format as (Text:*word1* Text:*word2*)
+                    return `(${words.map(word => `Text:*${word}*`).join(" ")})`;
+                } else {
+                    // For single word terms, format as Text:*Term*
+                    return `Text:*${words[0]}*`;
+                }
+            }).join(" OR ");
+
             document.getElementById("output_text").value = output;
         });
     </script>
