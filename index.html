@@ -98,7 +98,7 @@
                 }
             }).join(" OR ");
 
-            document.getElementById("output_text").value = output;
+            document.getElementById("output_text").value = `(${output})`;
         }
 
         questionList.addEventListener("change", updateOutput);
