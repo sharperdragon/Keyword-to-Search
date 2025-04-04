@@ -35,6 +35,7 @@ label {
 textarea {
     width: 95%;
     margin-bottom: 10px;
+    min-height:150px;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 8px;
