@@ -39,10 +39,16 @@
         inputField.addEventListener("input", updateQuestionList);
 
         // Event listener for Select All button
-        selectAllButton.addEventListener("click", () => toggleSelection(true));
+        selectAllButton.addEventListener("click", () => {
+            toggleSelection(true);
+            updateOutput();
+        });
 
         // Event listener for Deselect All button
-        deselectAllButton.addEventListener("click", () => toggleSelection(false));
+        deselectAllButton.addEventListener("click", () => {
+            toggleSelection(false);
+            updateOutput();
+        });
 
         function updateQuestionList() {
             questionList.innerHTML = ""; // Clear previous list
@@ -70,6 +76,7 @@
             const checkboxes = questionList.querySelectorAll("input[type='checkbox']");
             checkboxes.forEach(checkbox => {
                 checkbox.checked = selectAll;
+                checkbox.dispatchEvent(new Event("change"));
             });
         }
 
