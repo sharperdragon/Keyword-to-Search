@@ -83,23 +83,56 @@
 
         function updateOutput() {
             const selectedIDs = Array.from(document.querySelectorAll("#question_list input:checked"))
-                                     .map(input => input.value);
+                                    .map(input => input.value);
 
             if (!selectedIDs.length) {
                 document.getElementById("output_text").value = "";
                 return;
             }
 
-            const output = selectedIDs.map(id => {
-                const words = id.split(" ");
-                if (words.length > 1) {
-                    return `(${words.map(word => `Text:*${word}*`).join(" ")})`;
-                } else {
-                    return `Text:*${words[0]}*`;
-                }
-            }).join(" OR ");
+            // Helper to normalize case and spacing
+            const normalize = str => str.trim().toLowerCase();
 
-            document.getElementById("output_text").value = `(${output})`;
+            // Step 1: Group by suffix (e.g., last 2 words)
+            const suffixGroups = {};
+            const uniqueEntries = [];
+
+            selectedIDs.forEach(entry => {
+                const words = entry.trim().split(/\s+/);
+                if (words.length >= 2) {
+                    const suffix = words.slice(-2).map(normalize).join(" ");
+                    const prefix = words.slice(0, -2).join(" ");
+                    if (!suffixGroups[suffix]) suffixGroups[suffix] = [];
+                    suffixGroups[suffix].push(prefix);
+                } else {
+                    uniqueEntries.push(entry.trim());
+                }
+            });
+
+            // Step 2: Construct the output
+            const outputParts = [];
+
+            for (const [suffix, prefixes] of Object.entries(suffixGroups)) {
+                const suffixWords = suffix.split(" ").map(w => `Text:*${w}*`).join(" ");
+                if (prefixes.length > 1) {
+                    const groupedPrefixes = prefixes.map(p => {
+                        const pw = p.trim().split(" ").filter(Boolean).map(word => `Text:*${word}*`).join(" ");
+                        return `(${pw})`;
+                    }).join(" OR ");
+                    outputParts.push(`(${suffixWords}(${groupedPrefixes}))`);
+                } else {
+                    const prefixWords = prefixes[0].trim().split(" ").map(word => `Text:*${word}*`).join(" ");
+                    outputParts.push(`(${prefixWords} ${suffixWords})`);
+                }
+            }
+
+            // Step 3: Add remaining entries
+            uniqueEntries.forEach(entry => {
+                const words = entry.trim().split(/\s+/).map(w => `Text:*${w}*`);
+                outputParts.push(`(${words.join(" ")})`);
+            });
+
+            document.getElementById("output_text").value = `(${outputParts.join(" OR ")})`;
         }
 
         questionList.addEventListener("change", updateOutput);
