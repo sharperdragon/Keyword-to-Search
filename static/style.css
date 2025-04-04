@@ -80,14 +80,8 @@ button:hover {
 div#selection_buttons {
     margin: 0 0 1px 0;
     margin-top: 4px;
-    padding: 10;
 }
 
-button#generate_output {
-    margin: 0 auto;
-}
-
-/* Specific section styling */
 div#mode_section {
     padding: 10px;
     margin-right: 20px;

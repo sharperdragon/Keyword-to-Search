@@ -25,7 +25,6 @@
         <div id="question_list"></div>
 
         <!-- Output Section -->
-        <button id="generate_output">Generate</button>
         <label for="output_text">Output <span style="opacity:0.7">(paste into Anki browser)</span></label>
         <textarea id="output_text" rows="5" readonly></textarea>
     </div>
@@ -64,6 +63,7 @@
                 questionList.appendChild(label);
                 questionList.appendChild(document.createElement("br"));
             });
+            updateOutput();
         }
 
         function toggleSelection(selectAll) {
@@ -73,31 +73,28 @@
             });
         }
 
-        // Generate the output when "Generate" is clicked
-        document.getElementById("generate_output").addEventListener("click", () => {
-            const inputIDs = inputField.value.trim();
+        function updateOutput() {
             const selectedIDs = Array.from(document.querySelectorAll("#question_list input:checked"))
-                                       .map(input => input.value);
+                                     .map(input => input.value);
 
             if (!selectedIDs.length) {
-                alert("No IDs selected for output.");
+                document.getElementById("output_text").value = "";
                 return;
             }
 
-            // Create output with the new formatting for terms with spaces
             const output = selectedIDs.map(id => {
-                const words = id.split(" "); // Split by space
+                const words = id.split(" ");
                 if (words.length > 1) {
-                    // Format as (Text:*word1* Text:*word2*)
                     return `(${words.map(word => `Text:*${word}*`).join(" ")})`;
                 } else {
-                    // For single word terms, format as Text:*Term*
                     return `Text:*${words[0]}*`;
                 }
             }).join(" OR ");
 
             document.getElementById("output_text").value = output;
-        });
+        }
+
+        questionList.addEventListener("change", updateOutput);
     </script>
 </body>
 </html>
