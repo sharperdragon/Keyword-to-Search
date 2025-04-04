@@ -19,6 +19,7 @@
         <div id="selection_buttons">
             <button id="select_all">Select All</button>
             <button id="deselect_all">Deselect All</button>
+            <button id="copy_button">Copy to Clipboard</button>
         </div>
 
         <!-- Generated Questions -->
@@ -102,6 +103,17 @@
         }
 
         questionList.addEventListener("change", updateOutput);
+
+        const copyButton = document.getElementById("copy_button");
+        copyButton.addEventListener("click", () => {
+            const outputText = document.getElementById("output_text");
+            outputText.select();
+            outputText.setSelectionRange(0, 99999); // For mobile compatibility
+            navigator.clipboard.writeText(outputText.value).then(() => {
+                copyButton.textContent = "Copied!";
+                setTimeout(() => (copyButton.textContent = "Copy to Clipboard"), 1500);
+            });
+        });
     </script>
 </body>
 </html>
