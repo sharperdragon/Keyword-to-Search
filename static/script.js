@@ -81,15 +81,19 @@ function updateOutput() {
 
     for (const [suffix, prefixes] of Object.entries(suffixGroups)) {
         const suffixWords = suffix.split(" ").map(w => `Text:*${w}*`).join(" ");
-        if (prefixes.length > 1) {
-            const groupedPrefixes = prefixes.map(p => {
+        const nonEmptyPrefixes = prefixes.filter(p => p.trim().length > 0);
+
+        if (nonEmptyPrefixes.length > 1) {
+            const groupedPrefixes = nonEmptyPrefixes.map(p => {
                 const pw = p.trim().split(" ").filter(Boolean).map(word => `Text:*${word}*`).join(" ");
                 return `(${pw})`;
             }).join(" OR ");
             outputParts.push(`(${suffixWords}(${groupedPrefixes}))`);
-        } else {
-            const prefixWords = prefixes[0].trim().split(" ").map(word => `Text:*${word}*`).join(" ");
+        } else if (nonEmptyPrefixes.length === 1) {
+            const prefixWords = nonEmptyPrefixes[0].trim().split(" ").map(word => `Text:*${word}*`).join(" ");
             outputParts.push(`(${prefixWords} ${suffixWords})`);
+        } else {
+            outputParts.push(`(${suffixWords})`);
         }
     }
 
