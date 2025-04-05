@@ -105,7 +105,9 @@
             const uniqueEntries = [];
 
             selectedIDs.forEach(entry => {
-                const words = entry.trim().split(/\s+/);
+                const words = entry.startsWith('"') && entry.endsWith('"')
+                    ? [] // skip suffix grouping for quoted entries
+                    : entry.trim().split(/\s+/);
                 if (words.length >= 2) {
                     const suffix = words.slice(-2).map(normalize).join(" ");
                     const prefix = words.slice(0, -2).join(" ");
