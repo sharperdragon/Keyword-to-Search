@@ -110,7 +110,10 @@ function updateOutput() {
 
     // Step 3: Add remaining entries
     uniqueEntries.forEach(entry => {
-        if (entry.includes(" ")) {
+        if (entry.startsWith('"') && entry.endsWith('"')) {
+            const clean = entry.slice(1, -1);
+            outputParts.push(`("Text:*${clean}*")`);
+        } else if (entry.includes(" ")) {
             outputParts.push(`("Text:*${entry}*")`);
         } else {
             outputParts.push(`(Text:*${entry}*)`);
