@@ -30,7 +30,7 @@ function updateQuestionList() {
     const regex = /"([^"]+)"|([^,]+)/g;
     let match;
     while ((match = regex.exec(inputIDs)) !== null) {
-        const item = (match[1] || match[2]).trim();
+        const item = match[1] ? `"${match[1].trim()}"` : match[2].trim();
         if (item) ids.push(item);
     }
     
