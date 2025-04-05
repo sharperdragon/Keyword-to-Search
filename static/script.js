@@ -26,7 +26,14 @@ function updateQuestionList() {
         return; // Do nothing if input is empty
     }
 
-    const ids = inputIDs.split(",").map(id => id.trim()).filter(id => id);
+    const ids = [];
+    const regex = /"([^"]+)"|([^,]+)/g;
+    let match;
+    while ((match = regex.exec(inputIDs)) !== null) {
+        const item = (match[1] || match[2]).trim();
+        if (item) ids.push(item);
+    }
+    
     ids.forEach((id, index) => {
         const label = document.createElement("label");
         label.innerHTML = `
@@ -98,8 +105,11 @@ function updateOutput() {
 
     // Step 3: Add remaining entries
     uniqueEntries.forEach(entry => {
-        const words = entry.trim().split(/\s+/).map(w => `Text:*${w}*`);
-        outputParts.push(`(${words.join(" ")})`);
+        if (entry.includes(" ")) {
+            outputParts.push(`("Text:*${entry}*")`);
+        } else {
+            outputParts.push(`(Text:*${entry}*)`);
+        }
     });
 
     document.getElementById("output_text").value = `(${outputParts.join(" OR ")})`;
