@@ -72,6 +72,11 @@ function updateOutput() {
     const uniqueEntries = [];
 
     selectedIDs.forEach(entry => {
+        if (entry.startsWith('"') && entry.endsWith('"')) {
+            uniqueEntries.push(entry); // preserve the quoted entry
+            return;
+        }
+
         const words = entry.trim().split(/\s+/);
         if (words.length >= 2) {
             const suffix = words.slice(-2).map(normalize).join(" ");
