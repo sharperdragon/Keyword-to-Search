@@ -73,7 +73,10 @@ function updateOutput() {
 
     selectedIDs.forEach(entry => {
         if (entry.startsWith('"') && entry.endsWith('"')) {
-            uniqueEntries.push(entry); // preserve the quoted entry
+            const clean = entry.slice(1, -1).trim();
+            if (clean) {
+                uniqueEntries.push(`"${clean}"`);
+            }
             return;
         }
 

@@ -105,8 +105,11 @@
             const uniqueEntries = [];
 
             selectedIDs.forEach(entry => {
-                if (entry.startsWith('"') && entry.endsWith('"')) {
-                    uniqueEntries.push(entry); // preserve the quoted entry
+            if (entry.startsWith('"') && entry.endsWith('"')) {
+                    const clean = entry.slice(1, -1).trim();
+                    if (clean) {
+                        uniqueEntries.push(`"${clean}"`);
+                    }
                     return;
                 }
 
