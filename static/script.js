@@ -67,23 +67,23 @@ function updateOutput() {
     // Helper to normalize case and spacing
     const normalize = str => str.trim().toLowerCase();
 
-    // Step 1: Group by suffix (e.g., last 2 words)
+    // Step 1: Group by suffix (e.g., last word)
     const suffixGroups = {};
     const uniqueEntries = [];
 
     selectedIDs.forEach(entry => {
         if (entry.startsWith('"') && entry.endsWith('"')) {
-            const clean = entry.slice(1, -1).trim();
-            if (clean) {
-                uniqueEntries.push(`"${clean}"`);
-            }
+            // Instead of processing quoted entries immediately, add them to uniqueEntries
+            uniqueEntries.push(entry);
             return;
         }
 
         const words = entry.trim().split(/\s+/);
         if (words.length >= 2) {
-            const suffix = words.slice(-2).map(normalize).join(" ");
-            const prefix = words.slice(0, -2).join(" ");
+            // Use the last word as the common suffix
+            const suffix = normalize(words[words.length - 1]);
+            // The prefix is all words except the last one
+            const prefix = words.slice(0, -1).join(" ");
             if (!suffixGroups[suffix]) suffixGroups[suffix] = [];
             suffixGroups[suffix].push(prefix);
         } else {
@@ -96,28 +96,29 @@ function updateOutput() {
 
     for (const [suffix, prefixes] of Object.entries(suffixGroups)) {
         const nonEmptyPrefixes = prefixes.filter(p => p.trim().length > 0);
-        const suffixWords = suffix.split(" ").map(w => `Text:*${w}*`).join(" ");
+        const suffixWord = `Text:*${suffix}*`;
 
         if (nonEmptyPrefixes.length > 1) {
             const prefixGroup = nonEmptyPrefixes.map(p => {
-                return p.trim().split(" ").filter(Boolean).map(word => `Text:*${word}*`).join(" ");
+                return `(${p.trim().split(/\s+/).map(word => `Text:*${word}*`).join(" ")})`;
             }).join(" OR ");
-            outputParts.push(`((${prefixGroup}) ${suffixWords})`);
+            outputParts.push(`((${prefixGroup}) ${suffixWord})`);
         } else if (nonEmptyPrefixes.length === 1) {
-            const prefixWords = nonEmptyPrefixes[0].trim().split(" ").map(word => `Text:*${word}*`).join(" ");
-            outputParts.push(`(${prefixWords} ${suffixWords})`);
+            const prefixWords = nonEmptyPrefixes[0].trim().split(/\s+/).map(w => `Text:*${w}*`).join(" ");
+            outputParts.push(`(${prefixWords} ${suffixWord})`);
         } else {
-            outputParts.push(`(${suffixWords})`);
+            outputParts.push(`(${suffixWord})`);
         }
     }
 
     // Step 3: Add remaining entries
     uniqueEntries.forEach(entry => {
         if (entry.startsWith('"') && entry.endsWith('"')) {
-            const clean = entry.slice(1, -1);
+            const clean = entry.slice(1, -1).trim();
             outputParts.push(`("Text:*${clean}*")`);
         } else if (entry.includes(" ")) {
-            outputParts.push(`("Text:*${entry}*")`);
+            const words = entry.split(/\s+/).map(w => `Text:*${w}*`).join(" ");
+            outputParts.push(`(${words})`);
         } else {
             outputParts.push(`(Text:*${entry}*)`);
         }
