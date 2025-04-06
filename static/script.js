@@ -96,18 +96,18 @@ function updateOutput() {
 
     for (const [suffix, prefixes] of Object.entries(suffixGroups)) {
         const nonEmptyPrefixes = prefixes.filter(p => p.trim().length > 0);
-        const suffixWord = `Text:*${suffix}*`;
 
         if (nonEmptyPrefixes.length > 1) {
             const prefixGroup = nonEmptyPrefixes.map(p => {
-                return `(${p.trim().split(/\s+/).map(word => `Text:*${word}*`).join(" ")})`;
+                const prefixText = p.trim().split(/\s+/).map(word => `Text:*${word}*`).join(" ");
+                return `(${prefixText})`;
             }).join(" OR ");
-            outputParts.push(`((${prefixGroup}) ${suffixWord})`);
+            outputParts.push(`((Text:*${suffix}*)${prefixGroup})`);
         } else if (nonEmptyPrefixes.length === 1) {
-            const prefixWords = nonEmptyPrefixes[0].trim().split(/\s+/).map(w => `Text:*${w}*`).join(" ");
-            outputParts.push(`(${prefixWords} ${suffixWord})`);
+            const single = nonEmptyPrefixes[0].trim().split(/\s+/).map(word => `Text:*${word}*`).join(" ");
+            outputParts.push(`((Text:*${suffix}*) (${single}))`);
         } else {
-            outputParts.push(`(${suffixWord})`);
+            outputParts.push(`(Text:*${suffix}*)`);
         }
     }
 
