@@ -40,6 +40,10 @@ inputField.addEventListener("change", () => {
     const val = inputField.value.trim();
     if (val.length > 0) saveToHistory(val);
 });
+inputField.addEventListener("blur", () => {
+    const val = inputField.value.trim();
+    if (val.length > 0) saveToHistory(val);
+});
 
 historySelect.addEventListener("change", () => {
     if (historySelect.value) {
