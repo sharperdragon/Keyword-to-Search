@@ -1,3 +1,11 @@
+function debounce(func, delay = 300) {
+    let timeout;
+    return (...args) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func(...args), delay);
+    };
+}
+
 const inputField = document.getElementById("input_ids");
 const questionList = document.getElementById("question_list");
 const outputText = document.getElementById("output_text");
@@ -8,14 +16,14 @@ const historySelect = document.getElementById("history_select");
 
 // Update the question list dynamically and save to history on input
 let lastSavedInput = "";
-inputField.addEventListener("input", () => {
+inputField.addEventListener("input", debounce(() => {
     const val = inputField.value.trim();
     updateQuestionList();
     if (val && val !== lastSavedInput) {
         saveToHistory(val);
         lastSavedInput = val;
     }
-});
+}, 300));
 
 // Event listener for Select All button
 selectAllButton.addEventListener("click", () => {
@@ -44,8 +52,6 @@ function populateHistoryDropdown(history = null) {
     });
 }
 
-
-
 historySelect.addEventListener("change", () => {
     if (historySelect.value) {
         inputField.value = historySelect.value;
@@ -67,6 +73,11 @@ function updateQuestionList() {
 
     if (!inputIDs) {
         return; // Do nothing if input is empty
+    }
+    
+    if (!inputIDs && lastSavedInput !== "") {
+        saveToHistory("");
+        lastSavedInput = "";
     }
 
     const ids = [];
@@ -129,6 +140,11 @@ copyButton.addEventListener("click", () => {
     outputText.select();
     outputText.setSelectionRange(0, 99999); // For mobile compatibility
     navigator.clipboard.writeText(outputText.value).then(() => {
+        const val = inputField.value.trim();
+        if (val && val !== lastSavedInput) {
+            saveToHistory(val);
+            lastSavedInput = val;
+        }
         copyButton.textContent = "Copied!";
         setTimeout(() => (copyButton.textContent = "Copy to Clipboard"), 1500);
     });
