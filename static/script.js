@@ -81,13 +81,12 @@ function updateQuestionList() {
     const inputIDs = inputField.value.trim();
 
     if (!inputIDs) {
-        return; // Do nothing if input is empty
-    }
-    
-    if (!inputIDs && lastSavedInput !== "") {
-        saveToHistory("");
-        lastSavedInput = "";
-        updateHistoryDropdown();
+        if (lastSavedInput !== "") {
+            saveToHistory("");
+            lastSavedInput = "";
+            updateHistoryDropdown();
+        }
+        return;
     }
 
     const ids = [];
@@ -159,4 +158,9 @@ copyButton.addEventListener("click", () => {
         copyButton.textContent = "Copied!";
         setTimeout(() => (copyButton.textContent = "Copy to Clipboard"), 1500);
     });
+
+// Ensure dropdown loads on page open
+document.addEventListener("DOMContentLoaded", () => {
+    updateHistoryDropdown();
+});
 });
