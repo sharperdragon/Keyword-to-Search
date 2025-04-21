@@ -33,12 +33,12 @@ selectAllButton.addEventListener("click", () => {
 
 function saveToHistory(entry) {
     if (!entry || !entry.trim()) return;
-    let history = JSON.parse(localStorage.getItem("keywordHistory") || "[]");
+    let history = JSON.parse(localStorage.getItem("conversionHistory") || "[]");
     history = history.filter(e => e !== entry); // Remove duplicates
     history.unshift(entry); // Add to top
     if (history.length > 20) history = history.slice(0, 20); // Limit size
-    localStorage.setItem("keywordHistory", JSON.stringify(history));
-    populateHistoryDropdown(history);
+    localStorage.setItem("conversionHistory", JSON.stringify(history));
+    updateHistoryDropdown();
     
     // Visual feedback
     const feedback = document.createElement("span");
@@ -50,9 +50,8 @@ function saveToHistory(entry) {
     setTimeout(() => feedback.remove(), 1000);
 }
 
-function populateHistoryDropdown(history = null) {
-    console.log("populateHistoryDropdown called with:", history);
-    if (history === null) history = JSON.parse(localStorage.getItem("keywordHistory") || "[]");
+function updateHistoryDropdown() {
+    const history = JSON.parse(localStorage.getItem("conversionHistory") || "[]");
     historySelect.innerHTML = '<option value="">-- Select from history --</option>';
     history.forEach(item => {
         const option = document.createElement("option");
@@ -156,7 +155,7 @@ copyButton.addEventListener("click", () => {
             saveToHistory(val);
             lastSavedInput = val;
         }
-        populateHistoryDropdown();
+                updateHistoryDropdown();
         copyButton.textContent = "Copied!";
         setTimeout(() => (copyButton.textContent = "Copy to Clipboard"), 1500);
     });

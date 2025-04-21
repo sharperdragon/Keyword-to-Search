@@ -165,11 +165,8 @@
             });
         });
 
-        // Debug: log and populate history on load
         document.addEventListener("DOMContentLoaded", () => {
-            const stored = JSON.parse(localStorage.getItem("keywordHistory") || "[]");
-            console.log("History loaded:", stored);
-            populateHistoryDropdown(stored);
+            updateHistoryDropdown();
         });
     </script>
 </body>
