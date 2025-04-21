@@ -68,6 +68,7 @@
             if (val && val !== lastSavedInput) {
                 saveToHistory(val);
                 lastSavedInput = val;
+                populateHistoryDropdown();
             }
         }, 300));
 
@@ -91,6 +92,7 @@
                 if (lastSavedInput !== "") {
                     saveToHistory("");
                     lastSavedInput = "";
+                    populateHistoryDropdown();
                 }
                 return; // Do nothing if input is empty
             }
@@ -159,6 +161,7 @@
                 if (val && val !== lastSavedInput) {
                     saveToHistory(val);
                     lastSavedInput = val;
+                    populateHistoryDropdown();
                 }
                 copyButton.textContent = "Copied!";
                 setTimeout(() => (copyButton.textContent = "Copy to Clipboard"), 1500);

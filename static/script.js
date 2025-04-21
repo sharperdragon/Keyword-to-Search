@@ -78,6 +78,7 @@ function updateQuestionList() {
     if (!inputIDs && lastSavedInput !== "") {
         saveToHistory("");
         lastSavedInput = "";
+        populateHistoryDropdown();
     }
 
     const ids = [];
@@ -145,6 +146,7 @@ copyButton.addEventListener("click", () => {
             saveToHistory(val);
             lastSavedInput = val;
         }
+        populateHistoryDropdown();
         copyButton.textContent = "Copied!";
         setTimeout(() => (copyButton.textContent = "Copy to Clipboard"), 1500);
     });
