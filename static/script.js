@@ -1,3 +1,4 @@
+const STORAGE_KEY = "keywordSearchHistory";
 function debounce(func, delay = 300) {
     let timeout;
     return (...args) => {
@@ -33,11 +34,11 @@ selectAllButton.addEventListener("click", () => {
 
 function saveToHistory(entry) {
     if (!entry || !entry.trim()) return;
-    let history = JSON.parse(localStorage.getItem("conversionHistory") || "[]");
+    let history = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
     history = history.filter(e => e !== entry); // Remove duplicates
     history.unshift(entry); // Add to top
     if (history.length > 20) history = history.slice(0, 20); // Limit size
-    localStorage.setItem("conversionHistory", JSON.stringify(history));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
     updateHistoryDropdown();
     
     // Visual feedback
@@ -51,7 +52,7 @@ function saveToHistory(entry) {
 }
 
 function updateHistoryDropdown() {
-    const history = JSON.parse(localStorage.getItem("conversionHistory") || "[]");
+    const history = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
     historySelect.innerHTML = '<option value="">-- Select from history --</option>';
     history.forEach(item => {
         const option = document.createElement("option");
@@ -161,8 +162,8 @@ copyButton.addEventListener("click", () => {
 
 // Ensure dropdown loads on page open
 document.addEventListener("DOMContentLoaded", () => {
-    if (!localStorage.getItem("conversionHistory")) {
-        localStorage.setItem("conversionHistory", JSON.stringify(["Apr 21, 10:00 → (Text:*test*)"]));
+    if (!localStorage.getItem(STORAGE_KEY)) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(["Apr 21, 10:00 → (Text:*test*)"]));
     }
     updateHistoryDropdown();
 });
