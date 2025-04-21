@@ -187,8 +187,24 @@ div#history_section > div > select {
     box-shadow: 0 0 5px rgba(0,123,255,0.5);
 }
 
+.input-history-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.sticky-history {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: white;
+    padding-top: 4px;
+    padding-bottom: 8px;
+}
+
 /* Input + History */
-<div>
+<div class="input-history-wrapper sticky-history">
     <label for="input_ids">Keywords (comma-separated):</label>
     <textarea id="input_ids" rows="4" placeholder="e.g., anti-Jo1, coronary artery, BRCA1..."></textarea>
 </div>

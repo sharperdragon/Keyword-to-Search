@@ -1,7 +1,10 @@
 const inputField = document.getElementById("input_ids");
 const questionList = document.getElementById("question_list");
+const outputText = document.getElementById("output_text");
 const selectAllButton = document.getElementById("select_all");
 const deselectAllButton = document.getElementById("deselect_all");
+const copyButton = document.getElementById("copy_button");
+const historySelect = document.getElementById("history_select");
 
 // Update the question list dynamically when input changes
 inputField.addEventListener("input", updateQuestionList);
@@ -11,8 +14,6 @@ selectAllButton.addEventListener("click", () => {
     toggleSelection(true);
     updateOutput();
 });
-
-const historySelect = document.getElementById("history_select");
 
 function saveToHistory(entry) {
     if (!entry || !entry.trim()) return;
@@ -102,7 +103,7 @@ function updateOutput() {
                              .map(input => input.value);
 
     if (!selectedIDs.length) {
-        document.getElementById("output_text").value = "";
+        outputText.value = "";
         return;
     }
 
@@ -119,14 +120,12 @@ function updateOutput() {
         }
     });
 
-    document.getElementById("output_text").value = `(${outputParts.join(" OR ")})`;
+    outputText.value = `(${outputParts.join(" OR ")})`;
 }
 
 questionList.addEventListener("change", updateOutput);
 
-const copyButton = document.getElementById("copy_button");
 copyButton.addEventListener("click", () => {
-    const outputText = document.getElementById("output_text");
     outputText.select();
     outputText.setSelectionRange(0, 99999); // For mobile compatibility
     navigator.clipboard.writeText(outputText.value).then(() => {

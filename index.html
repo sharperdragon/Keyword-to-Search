@@ -11,18 +11,20 @@
     <div class="container">
         <h1>Keyword to Anki Search</h1>
 
-        <!-- Input Field -->
-        <div>
-            <label for="input_ids">Keywords (comma-separated):</label>
-            <textarea id="input_ids" rows="4" placeholder="e.g., anti-Jo1, coronary artery, BRCA1..."></textarea>
-        </div>
+        <div class="input-history-wrapper sticky-history">
+            <!-- Input Field -->
+            <div>
+                <label for="input_ids">Keywords (comma-separated):</label>
+                <textarea id="input_ids" rows="4" placeholder="e.g., anti-Jo1, coronary artery, BRCA1..."></textarea>
+            </div>
 
-        <!-- History Dropdown -->
-        <div style="min-width: 220px; max-width: 300px;">
-            <label for="history_select">History:</label>
-            <select id="history_select" style="width: 100%;">
-                <option value="">-- Select from history --</option>
-            </select>
+            <!-- History Dropdown -->
+            <div style="min-width: 220px; max-width: 300px;">
+                <label for="history_select">History:</label>
+                <select id="history_select" style="width: 100%;">
+                    <option value="">-- Select from history --</option>
+                </select>
+            </div>
         </div>
 
         <!-- Buttons for Select All/Deselect All -->
@@ -43,8 +45,11 @@
     <script>
         const inputField = document.getElementById("input_ids");
         const questionList = document.getElementById("question_list");
+        const outputText = document.getElementById("output_text");
         const selectAllButton = document.getElementById("select_all");
         const deselectAllButton = document.getElementById("deselect_all");
+        const copyButton = document.getElementById("copy_button");
+        const historySelect = document.getElementById("history_select");
 
         // Update the question list dynamically when input changes
         inputField.addEventListener("input", updateQuestionList);
@@ -103,7 +108,7 @@
                                     .map(input => input.value);
 
             if (!selectedIDs.length) {
-                document.getElementById("output_text").value = "";
+                outputText.value = "";
                 return;
             }
 
@@ -120,14 +125,12 @@
                 }
             });
 
-            document.getElementById("output_text").value = `(${outputParts.join(" OR ")})`;
+            outputText.value = `(${outputParts.join(" OR ")})`;
         }
 
         questionList.addEventListener("change", updateOutput);
 
-        const copyButton = document.getElementById("copy_button");
         copyButton.addEventListener("click", () => {
-            const outputText = document.getElementById("output_text");
             outputText.select();
             outputText.setSelectionRange(0, 99999); // For mobile compatibility
             navigator.clipboard.writeText(outputText.value).then(() => {
