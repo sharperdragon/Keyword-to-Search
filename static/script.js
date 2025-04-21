@@ -6,8 +6,16 @@ const deselectAllButton = document.getElementById("deselect_all");
 const copyButton = document.getElementById("copy_button");
 const historySelect = document.getElementById("history_select");
 
-// Update the question list dynamically when input changes
-inputField.addEventListener("input", updateQuestionList);
+// Update the question list dynamically and save to history on input
+let lastSavedInput = "";
+inputField.addEventListener("input", () => {
+    const val = inputField.value.trim();
+    updateQuestionList();
+    if (val && val !== lastSavedInput) {
+        saveToHistory(val);
+        lastSavedInput = val;
+    }
+});
 
 // Event listener for Select All button
 selectAllButton.addEventListener("click", () => {
@@ -37,14 +45,6 @@ function populateHistoryDropdown(history = null) {
 }
 
 
-inputField.addEventListener("change", () => {
-    const val = inputField.value.trim();
-    if (val.length > 0) saveToHistory(val);
-});
-inputField.addEventListener("blur", () => {
-    const val = inputField.value.trim();
-    if (val.length > 0) saveToHistory(val);
-});
 
 historySelect.addEventListener("change", () => {
     if (historySelect.value) {
