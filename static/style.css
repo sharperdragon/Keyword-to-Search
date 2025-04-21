@@ -195,9 +195,8 @@ div#history_section > div > select {
 }
 
 .sticky-history {
-    position: sticky;
-    top: 0;
-    z-index: 10;
+    position: static;
+    z-index: auto;
     background-color: white;
     padding-top: 4px;
     padding-bottom: 8px;
