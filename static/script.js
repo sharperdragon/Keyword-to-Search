@@ -16,14 +16,8 @@ const copyButton = document.getElementById("copy_button");
 const historySelect = document.getElementById("history_select");
 
 // Update the question list dynamically and save to history on input
-let lastSavedInput = "";
 inputField.addEventListener("input", debounce(() => {
-    const val = inputField.value.trim();
-    updateQuestionList();
-    if (val && val !== lastSavedInput) {
-        saveToHistory(val);
-        lastSavedInput = val;
-    }
+    updateQuestionList(); // update displayed items only
 }, 300));
 
 // Event listener for Select All button
@@ -159,6 +153,7 @@ copyButton.addEventListener("click", () => {
         copyButton.textContent = "Copied!";
         setTimeout(() => (copyButton.textContent = "Copy to Clipboard"), 1500);
     });
+});
 
 // Ensure dropdown loads on page open
 document.addEventListener("DOMContentLoaded", () => {
@@ -166,5 +161,4 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(["Apr 21, 10:00 → (Text:*test*)"]));
     }
     updateHistoryDropdown();
-});
 });

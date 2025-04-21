@@ -201,3 +201,16 @@ div#history_section > div > select {
     padding-top: 4px;
     padding-bottom: 8px;
 }
+
+.history-feedback {
+    position: absolute;
+    right: 0;
+    top: -10px;
+    font-size: 14px;
+    color: green;
+    animation: floatUpFade 0.7s ease forwards;
+    pointer-events: none;
+    user-select: none;
+    z-index: 1000;
+    white-space: nowrap;
+}
