@@ -167,6 +167,12 @@
                 setTimeout(() => (copyButton.textContent = "Copy to Clipboard"), 1500);
             });
         });
+  // Debug: log and populate history on load
+  document.addEventListener("DOMContentLoaded", () => {
+      const stored = JSON.parse(localStorage.getItem("keywordHistory") || "[]");
+      console.log("History loaded:", stored);
+      populateHistoryDropdown(stored);
+  });
     </script>
 </body>
 </html>

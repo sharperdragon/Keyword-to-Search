@@ -51,6 +51,7 @@ function saveToHistory(entry) {
 }
 
 function populateHistoryDropdown(history = null) {
+    console.log("populateHistoryDropdown called with:", history);
     if (history === null) history = JSON.parse(localStorage.getItem("keywordHistory") || "[]");
     historySelect.innerHTML = '<option value="">-- Select from history --</option>';
     history.forEach(item => {
