@@ -39,6 +39,15 @@ function saveToHistory(entry) {
     if (history.length > 20) history = history.slice(0, 20); // Limit size
     localStorage.setItem("keywordHistory", JSON.stringify(history));
     populateHistoryDropdown(history);
+    
+    // Visual feedback
+    const feedback = document.createElement("span");
+    feedback.className = "history-feedback";
+    feedback.textContent = "+1";
+    const parent = historySelect.parentElement;
+    parent.style.position = "relative";
+    parent.appendChild(feedback);
+    setTimeout(() => feedback.remove(), 1000);
 }
 
 function populateHistoryDropdown(history = null) {
