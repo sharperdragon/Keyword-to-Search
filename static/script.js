@@ -1,3 +1,4 @@
+let lastSavedInput = "";
 const STORAGE_KEY = "keywordSearchHistory";
 function debounce(func, delay = 300) {
     let timeout;
