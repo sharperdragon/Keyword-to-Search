@@ -11,18 +11,18 @@
     <div class="container">
         <h1>Keyword to Anki Search</h1>
 
-        <!-- Input + History -->
-        <div style="display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px;">
-            <div style="flex: 1;">
-                <label for="input_ids">Keywords (comma-separated):</label>
-                <textarea id="input_ids" rows="4" placeholder="e.g., anti-Jo1, coronary artery, BRCA1..."></textarea>
-            </div>
-            <div style="min-width: 220px;">
-                <label for="history_select">History:</label>
-                <select id="history_select" style="width: 100%;">
-                    <option value="">-- Select from history --</option>
-                </select>
-            </div>
+        <!-- Input Field -->
+        <div>
+            <label for="input_ids">Keywords (comma-separated):</label>
+            <textarea id="input_ids" rows="4" placeholder="e.g., anti-Jo1, coronary artery, BRCA1..."></textarea>
+        </div>
+
+        <!-- History Dropdown -->
+        <div style="min-width: 220px; max-width: 300px;">
+            <label for="history_select">History:</label>
+            <select id="history_select" style="width: 100%;">
+                <option value="">-- Select from history --</option>
+            </select>
         </div>
 
         <!-- Buttons for Select All/Deselect All -->
