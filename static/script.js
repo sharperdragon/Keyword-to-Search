@@ -161,4 +161,3 @@ copyButton.addEventListener("click", () => {
         setTimeout(() => (copyButton.textContent = "Copy to Clipboard"), 1500);
     });
 });
-document.addEventListener("DOMContentLoaded", populateHistoryDropdown);
