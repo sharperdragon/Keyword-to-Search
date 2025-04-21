@@ -150,31 +150,6 @@ div#question_list {
     margin-left: auto;
 }
 
-/* Additional styling for Tag to Search page */
-#history_select {
-    padding: 6px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    background: #f4f4f4;
-    font-size: 95%;
-    min-width: 50%;
-}
-
-#clear_history_button {
-    padding: 6px 10px;
-    font-size: 90%;
-    background-color: #e74c3c;
-    color: white;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    margin-left: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-#clear_history_button:hover {
-    background-color: #c0392b;
-}
 
 /* Updated history section */
 div#history_section {
@@ -196,7 +171,3 @@ div#history_section > div > select {
     width: 100%;
 }
 
-div#history_section > div > button {
-    margin-top: 5px; 
-    width: 100%;
-}

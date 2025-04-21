@@ -35,11 +35,6 @@ function populateHistoryDropdown(history = null) {
     });
 }
 
-const clearHistoryButton = document.getElementById("clear_history_button");
-clearHistoryButton.addEventListener("click", () => {
-    localStorage.removeItem("keywordHistory");
-    populateHistoryDropdown([]);
-});
 
 inputField.addEventListener("change", () => {
     const val = inputField.value.trim();
@@ -53,7 +48,7 @@ historySelect.addEventListener("change", () => {
     }
 });
 
-populateHistoryDropdown();
+// Removed inline call to populateHistoryDropdown to avoid race conditions
 
 // Event listener for Deselect All button
 deselectAllButton.addEventListener("click", () => {
@@ -135,3 +130,4 @@ copyButton.addEventListener("click", () => {
         setTimeout(() => (copyButton.textContent = "Copy to Clipboard"), 1500);
     });
 });
+document.addEventListener("DOMContentLoaded", populateHistoryDropdown);
