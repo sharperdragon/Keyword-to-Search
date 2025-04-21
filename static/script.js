@@ -12,6 +12,49 @@ selectAllButton.addEventListener("click", () => {
     updateOutput();
 });
 
+const historySelect = document.getElementById("history_select");
+
+function saveToHistory(entry) {
+    if (!entry || !entry.trim()) return;
+    let history = JSON.parse(localStorage.getItem("keywordHistory") || "[]");
+    history = history.filter(e => e !== entry); // Remove duplicates
+    history.unshift(entry); // Add to top
+    if (history.length > 20) history = history.slice(0, 20); // Limit size
+    localStorage.setItem("keywordHistory", JSON.stringify(history));
+    populateHistoryDropdown(history);
+}
+
+function populateHistoryDropdown(history = null) {
+    if (history === null) history = JSON.parse(localStorage.getItem("keywordHistory") || "[]");
+    historySelect.innerHTML = '<option value="">-- Select from history --</option>';
+    history.forEach(item => {
+        const option = document.createElement("option");
+        option.value = item;
+        option.textContent = item;
+        historySelect.appendChild(option);
+    });
+}
+
+const clearHistoryButton = document.getElementById("clear_history_button");
+clearHistoryButton.addEventListener("click", () => {
+    localStorage.removeItem("keywordHistory");
+    populateHistoryDropdown([]);
+});
+
+inputField.addEventListener("change", () => {
+    const val = inputField.value.trim();
+    if (val.length > 0) saveToHistory(val);
+});
+
+historySelect.addEventListener("change", () => {
+    if (historySelect.value) {
+        inputField.value = historySelect.value;
+        updateQuestionList();
+    }
+});
+
+populateHistoryDropdown();
+
 // Event listener for Deselect All button
 deselectAllButton.addEventListener("click", () => {
     toggleSelection(false);
