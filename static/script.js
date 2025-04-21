@@ -161,6 +161,9 @@ copyButton.addEventListener("click", () => {
 
 // Ensure dropdown loads on page open
 document.addEventListener("DOMContentLoaded", () => {
+    if (!localStorage.getItem("conversionHistory")) {
+        localStorage.setItem("conversionHistory", JSON.stringify(["Apr 21, 10:00 → (Text:*test*)"]));
+    }
     updateHistoryDropdown();
 });
 });
