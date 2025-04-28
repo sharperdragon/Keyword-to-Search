@@ -128,6 +128,26 @@ div#selection_buttons {
     display: flex;
 }
 
+.options_container {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 8px;
+    border-radius: 10px;
+    z-index: 100;
+    flex-direction: row; /* Align items horizontally */
+    justify-content: flex-start; /* Align items to the left */
+    gap: 20px;
+}
+/* Show options horizontally on hover over either "Options" or the field options */
+#mode_section:hover .options_container,
+.options_container:hover {
+    display: flex;
+}
+
 /* Style each field option */
 .field_option {
     padding: 8px 12px;
