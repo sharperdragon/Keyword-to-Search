@@ -29,6 +29,14 @@ function initializeAdvancedOptions() {
 
     const fieldSelect = createDropdown("field_select", ["Text", "Front", "NID", "CID"]);
 
+    // Add placeholder update logic based on field selection
+    fieldSelect.addEventListener("change", () => {
+        const placeholder = (fieldSelect.value === "NID" || fieldSelect.value === "CID")
+            ? "121314324, 32426532, 312413241..."
+            : "e.g., anti-Jo1, coronary artery, BRCA1...";
+        inputField.placeholder = placeholder;
+    });
+
     advancedWrapper.appendChild(fieldLabel);
     advancedWrapper.appendChild(fieldSelect);
 
