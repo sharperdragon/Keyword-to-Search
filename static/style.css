@@ -132,7 +132,7 @@ div#selection_buttons {
 .options_container {
     display: none;
     position: absolute;
-    top: 30px;
+    top: 17px;
     right: 0;
     background-color: white;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
