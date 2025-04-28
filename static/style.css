@@ -166,6 +166,8 @@ div#question_list {
     overflow-y: hidden; /* Disable vertical overflow */
     width: 95%;
     padding: 10px;
+    max-height: 80vh;
+    overflow: auto;
     box-sizing: border-box;
     border: 1px solid #b7d7fa;
     border-radius: 10px;
