@@ -228,6 +228,16 @@ document.addEventListener("DOMContentLoaded", () => {
     if (typeof initializeAdvancedOptions === "function") {
         initializeAdvancedOptions();
     }
+    // --- BEGIN mode_section population ---
+    const modeSection = document.getElementById("mode_section");
+    if (modeSection) {
+        const label = document.createElement("label");
+        label.textContent = "Mode:";
+        const modeSelect = createDropdown("mode_select", ["Normal", "Advanced"]);
+        modeSection.appendChild(label);
+        modeSection.appendChild(modeSelect);
+    }
+    // --- END mode_section population ---
     // Insert Clear History button after history dropdown
     const historyParent = historySelect.parentElement;
     const clearButton = document.createElement("button");
