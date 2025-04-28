@@ -86,7 +86,7 @@ div#selection_buttons {
     margin-top: 4px;
 }
 
-/* Mode Section Right-aligned Above Title */
+/* Basic structure for the Options dropdown */
 #mode_section {
     position: absolute;
     top: 20px;
@@ -100,13 +100,13 @@ div#selection_buttons {
     opacity: 1;
 }
 
-/* "Options" label */
+/* Label for "Options" */
 #mode_section span {
     padding: 4px 8px;
     font-weight: bold;
 }
 
-/* Query Hover Effect to Display Search Fields (Text, Front, NID, CID) horizontally */
+/* Submenu to display options horizontally */
 #mode_section:hover .field_options {
     display: flex;
     gap: 20px; /* Horizontal spacing */
@@ -133,6 +133,11 @@ div#selection_buttons {
     border-radius: 5px;
     background-color: white;
     cursor: pointer;
+}
+
+/* Hover effect for submenu items */
+.field_options select:hover {
+    background-color: #e0e0e5;
 }
 
 /* Container for question list */
