@@ -87,13 +87,42 @@ div#selection_buttons {
 }
 
 div#mode_section {
-    padding: 10px;
-    margin-right: 20px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
 }
 
-#mode_section label {
-    display: inline-block;
-    margin-top: 20px;
+#mode_section:hover {
+    opacity: 1;
+    background-color: #f1f6ff;
+}
+
+/* Query Hover Effect to Display Search Fields (Front, CID, NID) */
+#mode_section:hover .field_options {
+    display: block;
+}
+
+.field_options {
+    display: none;
+    position: absolute;
+    top: 30px;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 8px;
+    border-radius: 10px;
+    z-index: 100;
+}
+
+.field_options select {
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
 }
 
 /* Container for question list */
@@ -230,10 +259,6 @@ div#history_section > div > select {
     font-weight: bold;
     cursor: pointer;
     padding: 4px 0;
-}
-
-#mode_section:hover {
-    background-color: #f1f6ff;
 }
 
 /* Subtle button press animation */

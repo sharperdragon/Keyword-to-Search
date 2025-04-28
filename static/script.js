@@ -231,11 +231,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- BEGIN mode_section population ---
     const modeSection = document.getElementById("mode_section");
     if (modeSection) {
-        const label = document.createElement("label");
-        label.textContent = "Mode:";
-        const modeSelect = createDropdown("mode_select", ["Normal", "Advanced"]);
-        modeSection.appendChild(label);
-        modeSection.appendChild(modeSelect);
+        const fieldSelect = document.getElementById("field_select");
+        if (fieldSelect) {
+            fieldSelect.addEventListener("change", updateOutput);
+        }
     }
     // --- END mode_section population ---
     // Insert Clear History button after history dropdown
@@ -260,9 +259,4 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
     historyParent.appendChild(clearButton);
-    // Add event listener for field_select dropdown to update output on change
-    const fieldSelect = document.getElementById("field_select");
-    if (fieldSelect) {
-        fieldSelect.addEventListener("change", updateOutput);
-    }
 });
