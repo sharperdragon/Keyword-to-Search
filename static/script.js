@@ -149,13 +149,31 @@ function updateOutput() {
 
     const outputParts = [];
 
+    const fieldBehavior = {
+        "Text": true,
+        "Front": true,
+        "CID": false,
+        "NID": false
+    };
+    const needsWildcard = fieldBehavior[selectedField] ?? true;
+
     selectedIDs.forEach(entry => {
         const words = entry.trim().split(/\s+/).map(w => w.trim()).filter(w => w.length > 0);
 
         if (words.length === 1) {
-            outputParts.push(`(${selectedField}:*${words[0]}*)`);
+            if (needsWildcard) {
+                outputParts.push(`(${selectedField}:*${words[0]}*)`);
+            } else {
+                outputParts.push(`(${selectedField}:${words[0]})`);
+            }
         } else if (words.length > 1) {
-            const wordClauses = words.map(w => `(${selectedField}:*${w}*)`);
+            const wordClauses = words.map(w => {
+                if (needsWildcard) {
+                    return `(${selectedField}:*${w}*)`;
+                } else {
+                    return `(${selectedField}:${w})`;
+                }
+            });
             outputParts.push(`(${wordClauses.join(" ")})`);
         }
     });

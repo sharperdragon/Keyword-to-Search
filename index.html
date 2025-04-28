@@ -1,47 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anki Easy Search</title>
-    <link rel="stylesheet" href="/Keyword-to-Search/static/style.css">
-    <link rel="icon" href="/UWorld-ID-to-Anki-Tag/favicon.png" type="image/png">
-</head>
-<body>
-    <div class="container">
-        <h1>Keyword to Anki Search</h1>
+// Assuming this is the existing script.js file content with the update applied to updateOutput()
 
-        <div class="input-history-wrapper sticky-history">
-            <!-- Input Field -->
-            <div>
-                <label for="input_ids">Keywords (comma-separated):</label>
-                <textarea id="input_ids" rows="4" placeholder="e.g., anti-Jo1, coronary artery, BRCA1..."></textarea>
-            </div>
+// ... other code ...
 
-            <!-- History Dropdown -->
-            <div style="min-width: 220px; max-width: 300px;">
-                <label for="history_select">History:</label>
-                <select id="history_select" style="width: 100%;">
-                    <option value=""> - Select from history - </option>
-                </select>
-            </div>
-        </div>
+function updateOutput() {
+    const selectedField = document.getElementById('field_select')?.value || "Text";
 
-        <!-- Buttons for Select All/Deselect All -->
-        <div id="selection_buttons">
-            <button id="select_all">Select All</button>
-            <button id="deselect_all">Deselect All</button>
-            <button id="copy_button">Copy to Clipboard</button>
-        </div>
+    const fieldBehavior = {
+        "Text": true,
+        "Front": true,
+        "CID": false,
+        "NID": false
+    };
+    const needsWildcard = fieldBehavior[selectedField] ?? true;
 
-        <!-- Generated Questions -->
-        <div id="question_list"></div>
+    const checkedQuestions = Array.from(document.querySelectorAll('#question_list input[type=checkbox]:checked'))
+        .map(cb => cb.value);
 
-        <!-- Output Section -->
-        <label for="output_text">Output <span style="opacity:0.7">(paste into Anki browser)</span></label>
-        <textarea id="output_text" rows="5" readonly></textarea>
-    </div>
+    let outputLines = checkedQuestions.map(q => {
+        if (needsWildcard) {
+            // Escape any existing * to avoid confusion, then add wildcard
+            const escaped = q.replace(/\*/g, '');
+            return `${selectedField}:*${escaped}*`;
+        } else {
+            return `${selectedField}:${q}`;
+        }
+    });
 
-    <script src="./static/script.js"></script>
-</body>
-</html>
+    document.getElementById('output_text').value = outputLines.join('\n');
+}
+
+// ... rest of the script.js code ...
