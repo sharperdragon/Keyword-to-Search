@@ -215,8 +215,8 @@ div#history_section > div > select {
     white-space: nowrap;
 }
 
-/* Advanced Options Styling */
-#advanced_options {
+/* Mode Options Styling */
+#mode_section {
     margin-top: 8px;
     border: 1px solid #d0e3ff;
     border-radius: 8px;
@@ -226,12 +226,12 @@ div#history_section > div > select {
     transition: background-color 0.3s ease;
 }
 
-#advanced_options summary {
+#mode_section summary {
     font-weight: bold;
     cursor: pointer;
     padding: 4px 0;
 }
 
-#advanced_options:hover {
+#mode_section:hover {
     background-color: #f1f6ff;
 }
