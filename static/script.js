@@ -16,6 +16,21 @@ const deselectAllButton = document.getElementById("deselect_all");
 const copyButton = document.getElementById("copy_button");
 const historySelect = document.getElementById("history_select");
 
+// Insert the field select dropdown dynamically
+const fieldSelect = document.createElement("select");
+fieldSelect.id = "field_select";
+["Text", "Front", "NID", "CID"].forEach(field => {
+    const option = document.createElement("option");
+    option.value = field;
+    option.textContent = field;
+    fieldSelect.appendChild(option);
+});
+const fieldLabel = document.createElement("label");
+fieldLabel.textContent = "Search Field:";
+const historyParent = document.querySelector('.input-history-wrapper');
+historyParent.appendChild(fieldLabel);
+historyParent.appendChild(fieldSelect);
+
 // Update the question list dynamically and save to history on input
 inputField.addEventListener("input", debounce(() => {
     updateQuestionList(); // update displayed items only
@@ -118,6 +133,8 @@ function updateOutput() {
     const selectedIDs = Array.from(document.querySelectorAll("#question_list input:checked"))
                              .map(input => input.value);
 
+    const selectedField = document.getElementById("field_select").value || "Text";
+
     if (!selectedIDs.length) {
         outputText.value = "";
         return;
@@ -129,9 +146,9 @@ function updateOutput() {
         const words = entry.trim().split(/\s+/).map(w => w.trim()).filter(w => w.length > 0);
 
         if (words.length === 1) {
-            outputParts.push(`(Text:*${words[0]}*)`);
+            outputParts.push(`(${selectedField}:*${words[0]}*)`);
         } else if (words.length > 1) {
-            const wordClauses = words.map(w => `(Text:*${w}*)`);
+            const wordClauses = words.map(w => `(${selectedField}:*${w}*)`);
             outputParts.push(`(${wordClauses.join(" ")})`);
         }
     });
