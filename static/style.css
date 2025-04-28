@@ -235,3 +235,28 @@ div#history_section > div > select {
 #mode_section:hover {
     background-color: #f1f6ff;
 }
+
+/* Subtle button press animation */
+button:active {
+    transform: translateY(1px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Make Clear History button a bit smaller and softer */
+#clear_history_button {
+    background: linear-gradient(to bottom, #ffffff, #f0f0f5);
+    color: #007aff;
+    border: 1px solid #d1d1d6;
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 90%;
+    padding: 6px 10px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+#clear_history_button:hover {
+    background: #e5e5ea;
+}
