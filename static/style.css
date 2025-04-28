@@ -86,7 +86,8 @@ div#selection_buttons {
     margin-top: 4px;
 }
 
-div#mode_section {
+/* Mode Section Right-aligned Above Title */
+#mode_section {
     position: absolute;
     top: 20px;
     right: 20px;
@@ -97,7 +98,7 @@ div#mode_section {
 
 #mode_section:hover {
     opacity: 1;
-    background-color: #f1f6ff;
+    background-color: #f1f6ff; /* Subtle hover background */
 }
 
 /* Query Hover Effect to Display Search Fields (Front, CID, NID) */
