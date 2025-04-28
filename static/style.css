@@ -106,13 +106,7 @@ div#selection_buttons {
     font-weight: bold;
 }
 
-/* Submenu to display options horizontally */
-#mode_section:hover .field_options {
-    display: flex;
-    gap: 20px; /* Horizontal spacing */
-    justify-content: flex-start; /* Align items to the left */
-}
-
+/* Hide the options by default */
 .field_options {
     display: none;
     position: absolute;
@@ -123,20 +117,27 @@ div#selection_buttons {
     padding: 8px;
     border-radius: 10px;
     z-index: 100;
-    flex-direction: row; /* Align items horizontally */
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 20px;
 }
 
-.field_options select {
-    padding: 5px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: white;
+/* Show options horizontally on hover */
+#mode_section:hover .field_options {
+    display: flex;
+}
+
+/* Style each field option */
+.field_option {
+    padding: 8px 12px;
     cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+    border-radius: 8px;
 }
 
-/* Hover effect for submenu items */
-.field_options select:hover {
+/* Hover effect for field options */
+.field_option:hover {
     background-color: #e0e0e5;
 }
 

@@ -235,6 +235,15 @@ document.addEventListener("DOMContentLoaded", () => {
         if (fieldSelect) {
             fieldSelect.addEventListener("change", updateOutput);
         }
+        const fieldOptions = document.querySelectorAll(".field_option");
+        fieldOptions.forEach(option => {
+            option.addEventListener("click", () => {
+                const selectedField = option.getAttribute("data-value");
+                const fieldSelect = document.getElementById("field_select");
+                fieldSelect.value = selectedField; // Update the hidden field select value
+                updateOutput(); // Update the output based on the selected field
+            });
+        });
     }
     // --- END mode_section population ---
     // Insert Clear History button after history dropdown
