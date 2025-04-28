@@ -18,7 +18,8 @@ export function createDropdown(id, optionsArray) {
         select.appendChild(option);
     });
     return select;
-}export function buildSearchClause(field, word) {
+}
+export function buildSearchClause(field, word) {
     return `(${field}:*${word}*)`;
 }
 

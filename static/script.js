@@ -51,9 +51,10 @@ selectAllButton.addEventListener("click", () => {
 
 function saveToHistory(entry) {
     if (!entry || !entry.trim()) return;
+    const fieldValue = document.getElementById("field_select") ? document.getElementById("field_select").value : "Text";
     let history = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-    history = history.filter(e => e !== entry); // Remove duplicates
-    history.unshift(entry); // Add to top
+    history = history.filter(e => e.input !== entry); // Remove duplicates
+    history.unshift({input: entry, field: fieldValue}); // Add to top
     if (history.length > 20) history = history.slice(0, 20); // Limit size
     localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
     updateHistoryDropdown();
@@ -73,16 +74,27 @@ function updateHistoryDropdown() {
     historySelect.innerHTML = '<option value="">-- Select from history --</option>';
     history.forEach(item => {
         const option = document.createElement("option");
-        option.value = item;
-        option.textContent = item;
+        option.value = JSON.stringify(item);
+        option.textContent = `${item.input} (Field: ${item.field})`;
         historySelect.appendChild(option);
     });
 }
 
 historySelect.addEventListener("change", () => {
     if (historySelect.value) {
-        inputField.value = historySelect.value;
-        updateQuestionList();
+        try {
+            const selected = JSON.parse(historySelect.value);
+            inputField.value = selected.input;
+            const fieldSelect = document.getElementById("field_select");
+            if(fieldSelect && selected.field) {
+                fieldSelect.value = selected.field;
+            }
+            updateQuestionList();
+        } catch(e) {
+            // Fallback if parsing fails
+            inputField.value = historySelect.value;
+            updateQuestionList();
+        }
     }
 });
 
@@ -201,11 +213,16 @@ copyButton.addEventListener("click", () => {
 // Ensure dropdown loads on page open
 document.addEventListener("DOMContentLoaded", () => {
     if (!localStorage.getItem(STORAGE_KEY)) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(["Apr 21, 10:00 → (Text:*test*)"]));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify([{input: "Apr 21, 10:00 → (Text:*test*)", field: "Text"}]));
     }
     updateHistoryDropdown();
     // Ensure advanced options are initialized on page load
     if (typeof initializeAdvancedOptions === "function") {
         initializeAdvancedOptions();
+    }
+    // Add event listener for field_select dropdown to update output on change
+    const fieldSelect = document.getElementById("field_select");
+    if (fieldSelect) {
+        fieldSelect.addEventListener("change", updateOutput);
     }
 });
