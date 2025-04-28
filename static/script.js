@@ -10,54 +10,20 @@ const deselectAllButton = document.getElementById("deselect_all");
 const copyButton = document.getElementById("copy_button");
 const historySelect = document.getElementById("history_select");
 
+// Initialize Options (Field Selection) - modularized
+function initializeOptions() {
+    const modeSection = document.getElementById("mode_section");
 
-// Advanced options (Search Field) - modularized
-function initializeAdvancedOptions() {
-    // Avoid duplicate insertion
-    if (document.getElementById("advanced_options")) return;
+    // Create options container for lateral expansion (displaying options horizontally)
+    const optionsContainer = document.createElement("div");
+    optionsContainer.className = "options_container";
 
-    const advancedWrapper = document.createElement("div");
-    advancedWrapper.id = "advanced_options";
-    advancedWrapper.style.marginTop = "8px";
-    // Create summary-like label for Advanced Options
-    const summary = document.createElement("span");
-    summary.textContent = "Advanced Options";
-    summary.style.fontWeight = "bold";
-    summary.style.marginRight = "12px";
-    advancedWrapper.appendChild(summary);
-
-    // Add "Clear History" button
-    const clearHistoryButton = document.createElement("button");
-    clearHistoryButton.id = "clear_history_button";
-    clearHistoryButton.textContent = "Clear History";
-    clearHistoryButton.addEventListener("click", () => {
-        if (confirm("Are you sure you want to clear all history?")) {
-            localStorage.removeItem(STORAGE_KEY); // Clear history
-            updateHistoryDropdown(); // Update dropdown after clearing
-        }
-    });
-    advancedWrapper.appendChild(clearHistoryButton);
-
-    // Create the field options for field selection
-    const fieldOptionsWrapper = document.createElement("div");
-    fieldOptionsWrapper.className = "field_options";
-    fieldOptionsWrapper.style.display = "flex";
-    fieldOptionsWrapper.style.flexDirection = "row";
-    fieldOptionsWrapper.style.gap = "20px";
-    fieldOptionsWrapper.style.marginLeft = "16px";
-    fieldOptionsWrapper.style.marginTop = "8px";
-    const fieldOptions = [
-        { label: "Text", display: "Text" },
-        { label: "Front", display: "Front" },
-        { label: "NID", display: "NID" },
-        { label: "CID", display: "CID" }
-    ];
+    const fieldOptions = ["Text", "Front", "NID", "CID"];
     fieldOptions.forEach(option => {
         const optionDiv = document.createElement("div");
         optionDiv.className = "field_option";
-        optionDiv.textContent = option.display;
-        optionDiv.setAttribute("data-value", option.label);
-        optionDiv.style.userSelect = "none";
+        optionDiv.textContent = option;
+        optionDiv.setAttribute("data-value", option);
         optionDiv.addEventListener("click", () => {
             const selectedField = optionDiv.getAttribute("data-value");
             const fieldSelect = document.getElementById("field_select");
@@ -66,14 +32,10 @@ function initializeAdvancedOptions() {
                 updateOutput(); // Update output based on the selected field
             }
         });
-        fieldOptionsWrapper.appendChild(optionDiv);
+        optionsContainer.appendChild(optionDiv);
     });
-    advancedWrapper.appendChild(fieldOptionsWrapper);
 
-    const historyParent = document.querySelector('.input-history-wrapper');
-    if (historyParent) {
-        historyParent.appendChild(advancedWrapper);
-    }
+    modeSection.appendChild(optionsContainer);
 }
 
 // Update the question list dynamically and save to history on input
@@ -135,8 +97,6 @@ historySelect.addEventListener("change", () => {
         }
     }
 });
-
-// Removed inline call to populateHistoryDropdown to avoid race conditions
 
 // Event listener for Deselect All button
 deselectAllButton.addEventListener("click", () => {
@@ -254,9 +214,9 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem(STORAGE_KEY, JSON.stringify([{input: "Apr 21, 10:00 → (Text:*test*)", field: "Text"}]));
     }
     updateHistoryDropdown();
-    // Ensure advanced options are initialized on page load
-    if (typeof initializeAdvancedOptions === "function") {
-        initializeAdvancedOptions();
+    // Initialize options on page load
+    if (typeof initializeOptions === "function") {
+        initializeOptions();
     }
     // --- BEGIN mode_section population ---
     const modeSection = document.getElementById("mode_section");

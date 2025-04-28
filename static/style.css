@@ -86,7 +86,7 @@ div#selection_buttons {
     margin-top: 4px;
 }
 
-/* Basic structure for the Options dropdown */
+/* Basic structure for the Options button */
 #mode_section {
     position: absolute;
     top: 20px;
@@ -106,27 +106,11 @@ div#selection_buttons {
     font-weight: bold;
 }
 
-/* Advanced options field options horizontal layout */
-.field_options {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    padding: 8px 12px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.2s ease;
-    border-radius: 8px;
-    background-color: transparent;
-    box-shadow: none;
-    position: static;
-    min-height: unset;
-    z-index: 1;
-}
-
+/* Options container (for lateral expansion) */
 .options_container {
     display: none;
     position: absolute;
-    top: 17px;
+    top: 30px;
     right: 0;
     background-color: white;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
@@ -137,10 +121,25 @@ div#selection_buttons {
     justify-content: flex-start; /* Align items to the left */
     gap: 20px;
 }
-/* Show options horizontally on hover over either "Options" or the field options */
+
+/* Show options horizontally on hover over "Options" */
 #mode_section:hover .options_container,
 .options_container:hover {
     display: flex;
+}
+
+/* Style for field options */
+.field_option {
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+    border-radius: 8px;
+}
+
+/* Hover effect for field options */
+.field_option:hover {
+    background-color: #e0e0e5;
 }
 
 /* Container for question list */
