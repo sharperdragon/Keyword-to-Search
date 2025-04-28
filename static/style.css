@@ -115,7 +115,7 @@ div#selection_buttons {
     right: 0;
     background-color: white;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    padding: 8px;
+    padding: 3px 10px;
     border-radius: 10px;
     z-index: 100;
     flex-direction: row; /* Align items horizontally */
