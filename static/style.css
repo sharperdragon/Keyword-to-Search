@@ -108,7 +108,14 @@ div#selection_buttons {
 
 /* Hide the options by default */
 .field_options {
-    display: none;
+
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+    border-radius: 8px;
+
+   /*  display: ; */
     min-height: unset;
     position: absolute;
     top: 30px;
@@ -148,20 +155,6 @@ div#selection_buttons {
 #mode_section:hover .options_container,
 .options_container:hover {
     display: flex;
-}
-
-/* Style each field option */
-.field_option {
-    padding: 8px 12px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.2s ease;
-    border-radius: 8px;
-}
-
-/* Hover effect for field options */
-.field_option:hover {
-    background-color: #e0e0e5;
 }
 
 /* Container for question list */
