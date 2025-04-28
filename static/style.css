@@ -100,16 +100,17 @@ div#selection_buttons {
     opacity: 1;
 }
 
-/* "Query" becomes "Options" */
+/* "Options" label */
 #mode_section span {
     padding: 4px 8px;
     font-weight: bold;
 }
 
-/* Query Hover Effect to Display Search Fields (Text, Front, CID, NID) horizontally */
+/* Query Hover Effect to Display Search Fields (Text, Front, NID, CID) horizontally */
 #mode_section:hover .field_options {
     display: flex;
-    gap: 10px;
+    gap: 20px; /* Horizontal spacing */
+    justify-content: flex-start; /* Align items to the left */
 }
 
 .field_options {
