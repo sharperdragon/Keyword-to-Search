@@ -214,3 +214,24 @@ div#history_section > div > select {
     z-index: 1000;
     white-space: nowrap;
 }
+
+/* Advanced Options Styling */
+#advanced_options {
+    margin-top: 8px;
+    border: 1px solid #d0e3ff;
+    border-radius: 8px;
+    padding: 8px 12px;
+    background-color: #f9fbff;
+    font-size: 95%;
+    transition: background-color 0.3s ease;
+}
+
+#advanced_options summary {
+    font-weight: bold;
+    cursor: pointer;
+    padding: 4px 0;
+}
+
+#advanced_options:hover {
+    background-color: #f1f6ff;
+}

@@ -1,12 +1,6 @@
+import { debounce, createDropdown } from './utils.js';
 let lastSavedInput = "";
 const STORAGE_KEY = "keywordSearchHistory";
-function debounce(func, delay = 300) {
-    let timeout;
-    return (...args) => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func(...args), delay);
-    };
-}
 
 const inputField = document.getElementById("input_ids");
 const questionList = document.getElementById("question_list");
@@ -16,20 +10,33 @@ const deselectAllButton = document.getElementById("deselect_all");
 const copyButton = document.getElementById("copy_button");
 const historySelect = document.getElementById("history_select");
 
-// Insert the field select dropdown dynamically
-const fieldSelect = document.createElement("select");
-fieldSelect.id = "field_select";
-["Text", "Front", "NID", "CID"].forEach(field => {
-    const option = document.createElement("option");
-    option.value = field;
-    option.textContent = field;
-    fieldSelect.appendChild(option);
-});
-const fieldLabel = document.createElement("label");
-fieldLabel.textContent = "Search Field:";
-const historyParent = document.querySelector('.input-history-wrapper');
-historyParent.appendChild(fieldLabel);
-historyParent.appendChild(fieldSelect);
+
+// Advanced options (Search Field dropdown) - modularized
+function initializeAdvancedOptions() {
+    // Avoid duplicate insertion
+    if (document.getElementById("field_select")) return;
+
+    const advancedWrapper = document.createElement("details");
+    advancedWrapper.id = "advanced_options";
+    const summary = document.createElement("summary");
+    summary.textContent = "Advanced Options";
+    advancedWrapper.appendChild(summary);
+
+    const fieldLabel = document.createElement("label");
+    fieldLabel.textContent = "Search Field:";
+    fieldLabel.htmlFor = "field_select";
+    fieldLabel.style.marginTop = "10px";
+
+    const fieldSelect = createDropdown("field_select", ["Text", "Front", "NID", "CID"]);
+
+    advancedWrapper.appendChild(fieldLabel);
+    advancedWrapper.appendChild(fieldSelect);
+
+    const historyParent = document.querySelector('.input-history-wrapper');
+    if (historyParent) {
+        historyParent.appendChild(advancedWrapper);
+    }
+}
 
 // Update the question list dynamically and save to history on input
 inputField.addEventListener("input", debounce(() => {
@@ -179,4 +186,8 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(["Apr 21, 10:00 → (Text:*test*)"]));
     }
     updateHistoryDropdown();
+    // Ensure advanced options are initialized on page load
+    if (typeof initializeAdvancedOptions === "function") {
+        initializeAdvancedOptions();
+    }
 });
