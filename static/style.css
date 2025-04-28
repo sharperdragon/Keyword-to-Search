@@ -117,8 +117,8 @@ div#selection_buttons {
     padding: 8px;
     border-radius: 10px;
     z-index: 100;
-    flex-direction: row;
-    justify-content: flex-start;
+    flex-direction: column;
+    justify-content: space-around;
     gap: 20px;
 }
 
@@ -262,10 +262,11 @@ div#history_section > div > select {
 
 /* Mode Options Styling */
 #mode_section {
-    margin-top: 8px;
+    min-height:unset;
+    margin-top: 2px;
     border: 1px solid #d0e3ff;
     border-radius: 8px;
-    padding: 8px 12px;
+    padding: 4px 8px;
     background-color: #f9fbff;
     font-size: 95%;
     transition: background-color 0.3s ease;
