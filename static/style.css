@@ -109,6 +109,7 @@ div#selection_buttons {
 /* Hide the options by default */
 .field_options {
     display: none;
+    min-height: unset;
     position: absolute;
     top: 30px;
     right: 0;
