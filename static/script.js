@@ -11,34 +11,52 @@ const copyButton = document.getElementById("copy_button");
 const historySelect = document.getElementById("history_select");
 
 
-// Advanced options (Search Field dropdown) - modularized
+// Advanced options (Search Field) - modularized
 function initializeAdvancedOptions() {
     // Avoid duplicate insertion
-    if (document.getElementById("field_select")) return;
+    if (document.getElementById("advanced_options")) return;
 
-    const advancedWrapper = document.createElement("details");
+    const advancedWrapper = document.createElement("div");
     advancedWrapper.id = "advanced_options";
-    const summary = document.createElement("summary");
+    
+    // Create summary-like label for Advanced Options
+    const summary = document.createElement("span");
     summary.textContent = "Advanced Options";
     advancedWrapper.appendChild(summary);
 
-    const fieldLabel = document.createElement("label");
-    fieldLabel.textContent = "Search Field:";
-    fieldLabel.htmlFor = "field_select";
-    fieldLabel.style.marginTop = "10px";
-
-    const fieldSelect = createDropdown("field_select", ["Text", "Front", "NID", "CID"]);
-
-    // Add placeholder update logic based on field selection
-    fieldSelect.addEventListener("change", () => {
-        const placeholder = (fieldSelect.value === "NID" || fieldSelect.value === "CID")
-            ? "121314324, 32426532, 312413241..."
-            : "e.g., anti-Jo1, coronary artery, BRCA1...";
-        inputField.placeholder = placeholder;
+    // Add "Clear History" button
+    const clearHistoryButton = document.createElement("button");
+    clearHistoryButton.textContent = "Clear History";
+    clearHistoryButton.addEventListener("click", () => {
+        if (confirm("Are you sure you want to clear all history?")) {
+            localStorage.removeItem(STORAGE_KEY); // Clear history
+            updateHistoryDropdown(); // Update dropdown after clearing
+        }
     });
 
-    advancedWrapper.appendChild(fieldLabel);
-    advancedWrapper.appendChild(fieldSelect);
+    advancedWrapper.appendChild(clearHistoryButton);
+
+    // Create the field options for field selection
+    const fieldOptionsWrapper = document.createElement("div");
+    fieldOptionsWrapper.className = "field_options";
+
+    const fieldOptions = ["Text", "Front", "NID", "CID"];
+    fieldOptions.forEach(option => {
+        const optionDiv = document.createElement("div");
+        optionDiv.className = "field_option";
+        optionDiv.textContent = option;
+        optionDiv.setAttribute("data-value", option);
+        optionDiv.addEventListener("click", () => {
+            const selectedField = optionDiv.getAttribute("data-value");
+            const fieldSelect = document.getElementById("field_select");
+            fieldSelect.value = selectedField; // Update the hidden field select value
+            updateOutput(); // Update output based on the selected field
+        });
+
+        fieldOptionsWrapper.appendChild(optionDiv);
+    });
+
+    advancedWrapper.appendChild(fieldOptionsWrapper);
 
     const historyParent = document.querySelector('.input-history-wrapper');
     if (historyParent) {
