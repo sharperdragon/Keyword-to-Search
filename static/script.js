@@ -18,14 +18,17 @@ function initializeAdvancedOptions() {
 
     const advancedWrapper = document.createElement("div");
     advancedWrapper.id = "advanced_options";
-    
+    advancedWrapper.style.marginTop = "8px";
     // Create summary-like label for Advanced Options
     const summary = document.createElement("span");
     summary.textContent = "Advanced Options";
+    summary.style.fontWeight = "bold";
+    summary.style.marginRight = "12px";
     advancedWrapper.appendChild(summary);
 
     // Add "Clear History" button
     const clearHistoryButton = document.createElement("button");
+    clearHistoryButton.id = "clear_history_button";
     clearHistoryButton.textContent = "Clear History";
     clearHistoryButton.addEventListener("click", () => {
         if (confirm("Are you sure you want to clear all history?")) {
@@ -33,29 +36,38 @@ function initializeAdvancedOptions() {
             updateHistoryDropdown(); // Update dropdown after clearing
         }
     });
-
     advancedWrapper.appendChild(clearHistoryButton);
 
     // Create the field options for field selection
     const fieldOptionsWrapper = document.createElement("div");
     fieldOptionsWrapper.className = "field_options";
-
-    const fieldOptions = ["Text", "Front", "NID", "CID"];
+    fieldOptionsWrapper.style.display = "flex";
+    fieldOptionsWrapper.style.flexDirection = "row";
+    fieldOptionsWrapper.style.gap = "20px";
+    fieldOptionsWrapper.style.marginLeft = "16px";
+    fieldOptionsWrapper.style.marginTop = "8px";
+    const fieldOptions = [
+        { label: "Text", display: "Text" },
+        { label: "Front", display: "Front" },
+        { label: "NID", display: "NID" },
+        { label: "CID", display: "CID" }
+    ];
     fieldOptions.forEach(option => {
         const optionDiv = document.createElement("div");
         optionDiv.className = "field_option";
-        optionDiv.textContent = option;
-        optionDiv.setAttribute("data-value", option);
+        optionDiv.textContent = option.display;
+        optionDiv.setAttribute("data-value", option.label);
+        optionDiv.style.userSelect = "none";
         optionDiv.addEventListener("click", () => {
             const selectedField = optionDiv.getAttribute("data-value");
             const fieldSelect = document.getElementById("field_select");
-            fieldSelect.value = selectedField; // Update the hidden field select value
-            updateOutput(); // Update output based on the selected field
+            if (fieldSelect) {
+                fieldSelect.value = selectedField; // Update the hidden field select value
+                updateOutput(); // Update output based on the selected field
+            }
         });
-
         fieldOptionsWrapper.appendChild(optionDiv);
     });
-
     advancedWrapper.appendChild(fieldOptionsWrapper);
 
     const historyParent = document.querySelector('.input-history-wrapper');
@@ -253,37 +265,17 @@ document.addEventListener("DOMContentLoaded", () => {
         if (fieldSelect) {
             fieldSelect.addEventListener("change", updateOutput);
         }
-        const fieldOptions = document.querySelectorAll(".field_option");
+        const fieldOptions = document.querySelectorAll("#mode_section .field_option");
         fieldOptions.forEach(option => {
             option.addEventListener("click", () => {
                 const selectedField = option.getAttribute("data-value");
                 const fieldSelect = document.getElementById("field_select");
-                fieldSelect.value = selectedField; // Update the hidden field select value
-                updateOutput(); // Update the output based on the selected field
+                if (fieldSelect) {
+                    fieldSelect.value = selectedField; // Update the hidden field select value
+                    updateOutput(); // Update the output based on the selected field
+                }
             });
         });
     }
     // --- END mode_section population ---
-    // Insert Clear History button after history dropdown
-    const historyParent = historySelect.parentElement;
-    const clearButton = document.createElement("button");
-    clearButton.id = "clear_history_button";
-    clearButton.textContent = "Clear History";
-    clearButton.style.marginTop = "5px";
-    clearButton.style.marginLeft = "5px";
-    // Improved subtle style for "Clear History"
-    clearButton.style.backgroundColor = "#e0e7ff";
-    clearButton.style.color = "#333";
-    clearButton.style.fontSize = "90%";
-    clearButton.style.padding = "6px 10px";
-    clearButton.style.border = "1px solid #b0c4de";
-    clearButton.style.borderRadius = "8px";
-    clearButton.style.cursor = "pointer";
-    clearButton.addEventListener("click", () => {
-        if (confirm("Are you sure you want to clear all history?")) {
-            localStorage.removeItem(STORAGE_KEY);
-            updateHistoryDropdown();
-        }
-    });
-    historyParent.appendChild(clearButton);
 });

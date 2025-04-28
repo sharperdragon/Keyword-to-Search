@@ -106,35 +106,21 @@ div#selection_buttons {
     font-weight: bold;
 }
 
-/* Hide the options by default */
+/* Advanced options field options horizontal layout */
 .field_options {
-
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
     padding: 8px 12px;
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.2s ease;
     border-radius: 8px;
-
-   /*  display: ; */
+    background-color: transparent;
+    box-shadow: none;
+    position: static;
     min-height: unset;
-    position: absolute;
-    top: 30px;
-    right: 0;
-    background-color: white;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    padding: 3px 10px;
-    border-radius: 10px;
-    z-index: 100;
-    flex-direction: row; /* Align items horizontally */
-    justify-content: flex-start; /* Align items to the left */
-    gap: 20px;
-}
-
-/* Show options horizontally on hover over either "Options" or the field options */
-#mode_section:hover .field_options,
-.field_options:hover {
-    display: flex;
-    flex-direction: column;;
+    z-index: 1;
 }
 
 .options_container {
