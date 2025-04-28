@@ -117,13 +117,14 @@ div#selection_buttons {
     padding: 8px;
     border-radius: 10px;
     z-index: 100;
-    flex-direction: column;
-    justify-content: space-around;
+    flex-direction: row; /* Align items horizontally */
+    justify-content: flex-start; /* Align items to the left */
     gap: 20px;
 }
 
-/* Show options horizontally on hover */
-#mode_section:hover .field_options {
+/* Show options horizontally on hover over either "Options" or the field options */
+#mode_section:hover .field_options,
+.field_options:hover {
     display: flex;
 }
 
