@@ -1,4 +1,4 @@
-import { debounce, createDropdown } from './utils.js';
+import { debounce, createDropdown, buildSearchClause, loadLocalStorage} from './utils.js';
 let lastSavedInput = "";
 const STORAGE_KEY = "keywordSearchHistory";
 
@@ -228,6 +228,20 @@ document.addEventListener("DOMContentLoaded", () => {
     if (typeof initializeAdvancedOptions === "function") {
         initializeAdvancedOptions();
     }
+    // Insert Clear History button after history dropdown
+    const historyParent = historySelect.parentElement;
+    const clearButton = document.createElement("button");
+    clearButton.id = "clear_history_button";
+    clearButton.textContent = "Clear History";
+    clearButton.style.marginTop = "5px";
+    clearButton.style.marginLeft = "5px";
+    clearButton.addEventListener("click", () => {
+        if (confirm("Are you sure you want to clear all history?")) {
+            localStorage.removeItem(STORAGE_KEY);
+            updateHistoryDropdown();
+        }
+    });
+    historyParent.appendChild(clearButton);
     // Add event listener for field_select dropdown to update output on change
     const fieldSelect = document.getElementById("field_select");
     if (fieldSelect) {
