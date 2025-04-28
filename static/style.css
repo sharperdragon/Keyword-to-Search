@@ -98,12 +98,18 @@ div#selection_buttons {
 
 #mode_section:hover {
     opacity: 1;
-    background-color: #f1f6ff; /* Subtle hover background */
 }
 
-/* Query Hover Effect to Display Search Fields (Front, CID, NID) */
+/* "Query" becomes "Options" */
+#mode_section span {
+    padding: 4px 8px;
+    font-weight: bold;
+}
+
+/* Query Hover Effect to Display Search Fields (Text, Front, CID, NID) horizontally */
 #mode_section:hover .field_options {
-    display: block;
+    display: flex;
+    gap: 10px;
 }
 
 .field_options {
@@ -116,6 +122,7 @@ div#selection_buttons {
     padding: 8px;
     border-radius: 10px;
     z-index: 100;
+    flex-direction: row; /* Align items horizontally */
 }
 
 .field_options select {
@@ -124,6 +131,7 @@ div#selection_buttons {
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: white;
+    cursor: pointer;
 }
 
 /* Container for question list */
