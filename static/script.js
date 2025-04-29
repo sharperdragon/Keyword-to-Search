@@ -135,7 +135,20 @@ function updateOutput() {
         }
         return;
     }
-
+    function updatePlaceholderExample(selectedField) {
+        const outputBox = document.getElementById("output_text");
+        if (!outputBox) return;
+    
+        if (selectedField === "Text") {
+            outputBox.placeholder = "((Text:*jo1*) OR (Text:*antisaccromyces*) OR (Text:*poopy*))";
+        } else if (selectedField === "Front") {
+            outputBox.placeholder = "((Front:*jo1*) OR (Front:*antisaccromyces*) OR (Front:*poopy*))";
+        } else if (selectedField === "CID") {
+            outputBox.placeholder = "((CID:jo1) OR (CID:antisaccromyces) OR (CID:poopy))";
+        } else if (selectedField === "NID") {
+            outputBox.placeholder = "((NID:jo1) OR (NID:antisaccromyces) OR (NID:poopy))";
+        }
+    }
     const outputParts = [];
 
     const fieldBehavior = {
