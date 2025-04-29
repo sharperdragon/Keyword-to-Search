@@ -44,7 +44,7 @@ textarea {
 }
 
 /* Fix all divs to maintain consistent height */
-div :not(.options_container) {
+div :not(.options_container) :not(.field_options) {
     position: relative; /* Prevents hover effects from changing layout */
     min-height: 50px; /* Set a minimum height for all divs */
     margin: 10px 0; /* Space around divs */

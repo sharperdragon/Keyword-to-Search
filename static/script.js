@@ -12,14 +12,14 @@ const historySelect = document.getElementById("history_select");
 
 
 // Advanced options (Search Field dropdown) - modularized
-function initializeOptions() {
+function initializeAdvancedOptions() {
     // Avoid duplicate insertion
     if (document.getElementById("field_select")) return;
 
     const advancedWrapper = document.createElement("details");
-    advancedWrapper.id = "options_container";
+    advancedWrapper.id = "advanced_options";
     const summary = document.createElement("summary");
-    summary.textContent = "Options";
+    summary.textContent = "Advanced Options";
     advancedWrapper.appendChild(summary);
 
     const fieldLabel = document.createElement("label");
@@ -225,8 +225,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     updateHistoryDropdown();
     // Ensure advanced options are initialized on page load
-    if (typeof initializeOptions === "function") {
-        initializeOptions();
+    if (typeof initializeAdvancedOptions === "function") {
+        initializeAdvancedOptions();
     }
     // --- BEGIN mode_section population ---
     const modeSection = document.getElementById("mode_section");
