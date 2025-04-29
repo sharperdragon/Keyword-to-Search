@@ -105,8 +105,8 @@ function updateQuestionList() {
         checkbox.type = "checkbox";
         checkbox.value = id;
         checkbox.checked = true;
-        checkbox.dispatchEvent(new Event("change")); 
         label.appendChild(checkbox);
+        checkbox.dispatchEvent(new Event("change")); 
         label.innerHTML += `
             <span class="number">${index + 1})</span>
             <span class="space"> </span> 
