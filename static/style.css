@@ -44,10 +44,9 @@ textarea {
 }
 
 /* Fix all divs to maintain consistent height */
-div :not(.options_container) :not(.field_options) {
+div {
     position: relative; /* Prevents hover effects from changing layout */
-    min-height: 50px; /* Set a minimum height for all divs */
-    margin: 10px 0; /* Space around divs */
+
 }
 
 /* Button Styles */
@@ -88,7 +87,7 @@ div#selection_buttons {
 
 /* Basic structure for the Options dropdown */
 #mode_section {
-    position: absolute;
+    position: relative;
     top: 20px;
     right: 20px;
     opacity: 0.6;
@@ -113,7 +112,7 @@ div#selection_buttons {
     font-size: 16px;
     transition: background-color 0.2s ease;
     min-height: unset;
-    position: absolute;
+    position: relative;
     top: -10px;
     right: 0;
     background-color: white;
@@ -136,7 +135,7 @@ div#selection_buttons {
 
 .options_container {
     display: flex;
-    position: absolute;
+    position: relative;
     top: 17px;
     right: 0;
     background-color: white;
@@ -261,7 +260,7 @@ div#history_section > div > select {
 }
 
 .history-feedback {
-    position: absolute;
+    position: relative;
     right: 0;
     top: -10px;
     font-size: 14px;
@@ -339,7 +338,7 @@ button:active {
 }
 
 .ripple {
-    position: absolute;
+    position: relative;
     width: 10px;
     height: 10px;
     background: rgba(0, 123, 255, 0.4);
