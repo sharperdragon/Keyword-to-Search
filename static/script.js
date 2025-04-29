@@ -10,42 +10,6 @@ const deselectAllButton = document.getElementById("deselect_all");
 const copyButton = document.getElementById("copy_button");
 const historySelect = document.getElementById("history_select");
 
-
-// Advanced options (Search Field dropdown) - modularized
-function initializeAdvancedOptions() {
-    // Avoid duplicate insertion
-    if (document.getElementById("field_select")) return;
-
-    const advancedWrapper = document.createElement("details");
-    advancedWrapper.id = "advanced_options";
-    const summary = document.createElement("summary");
-    summary.textContent = "Advanced Options";
-    advancedWrapper.appendChild(summary);
-
-    const fieldLabel = document.createElement("label");
-    fieldLabel.textContent = "Search Field:";
-    fieldLabel.htmlFor = "field_select";
-    fieldLabel.style.marginTop = "10px";
-
-    const fieldSelect = createDropdown("field_select", ["Text", "Front", "NID", "CID"]);
-
-    // Add placeholder update logic based on field selection
-    fieldSelect.addEventListener("change", () => {
-        const placeholder = (fieldSelect.value === "NID" || fieldSelect.value === "CID")
-            ? "121314324, 32426532, 312413241..."
-            : "e.g., anti-Jo1, coronary artery, BRCA1...";
-        inputField.placeholder = placeholder;
-    });
-
-    advancedWrapper.appendChild(fieldLabel);
-    advancedWrapper.appendChild(fieldSelect);
-
-    const historyParent = document.querySelector('.input-history-wrapper');
-    if (historyParent) {
-        historyParent.appendChild(advancedWrapper);
-    }
-}
-
 // Update the question list dynamically and save to history on input
 inputField.addEventListener("input", debounce(() => {
     updateQuestionList(); // update displayed items only
@@ -224,10 +188,6 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem(STORAGE_KEY, JSON.stringify([{input: "Apr 21, 10:00 → (Text:*test*)", field: "Text"}]));
     }
     updateHistoryDropdown();
-    // Ensure advanced options are initialized on page load
-    if (typeof initializeAdvancedOptions === "function") {
-        initializeAdvancedOptions();
-    }
     // --- BEGIN mode_section population ---
     const modeSection = document.getElementById("mode_section");
     if (modeSection) {
