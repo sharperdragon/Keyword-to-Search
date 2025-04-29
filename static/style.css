@@ -102,17 +102,15 @@ div#selection_buttons {
 
 /* Label for "Options" */
 #mode_section span {
-    padding: 4px 8px;
+    padding: 5px 8px;
     font-weight: bold;
 }
 
 /* Hide the options by default */
 .field_options {
-    padding: 2px 10px;
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.2s ease;
-    border-radius: 8px;
     min-height: unset;
     position: absolute;
     top: -10px;
@@ -123,8 +121,8 @@ div#selection_buttons {
     border-radius: 10px;
     z-index: 100;
     flex-direction: row; /* Align items horizontally */
-    justify-content: flex-start; /* Align items to the left */
-    gap: 20px;
+    justify-content: center; /* Align items to the left */
+    gap: 2px;
     margin: 0.5px 0;
 }
 
@@ -142,7 +140,7 @@ div#selection_buttons {
     right: 0;
     background-color: white;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    padding: 4px;
+    padding: 1px 4px;
     border-radius: 7px;
     z-index: 100;
     flex-direction: column; /* Align items vertically */
