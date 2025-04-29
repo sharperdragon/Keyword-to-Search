@@ -35,7 +35,7 @@ label {
 textarea {
     width: 95%;
     margin-bottom: 10px;
-    min-height:150px;
+    position: relative;150px;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -274,7 +274,6 @@ div#history_section > div > select {
 
 /* Mode Options Styling */
 #mode_section {
-    min-height:unset;
     margin-top: 2px;
     border: 1px solid #d0e3ff;
     border-radius: 8px;
@@ -320,7 +319,6 @@ button:active {
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.2s ease, transform 0.1s ease;
-    min-height: unset;
     background-color: white;
     padding: 6px 14px;
     border-radius: 8px;
