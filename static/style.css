@@ -87,10 +87,10 @@ div#selection_buttons {
 
 #mode_section {
     position: absolute;  /* Fixed positioning */
-    top: 20px;
-    right: 20px;
-    width: 100px;         /* 🔒 Lock width */
-    height: 30px;         /* 🔒 Lock height */
+    top: 2px;
+    right: 4px;
+    width: 80px;         /* 🔒 Lock width */
+    height: 20px;         /* 🔒 Lock height */
     background-color: #f9fbff;
     border: 1px solid #d0e3ff;
     border-radius: 8px;
@@ -107,31 +107,63 @@ div#selection_buttons {
 #mode_section:hover {
     opacity: 1;
     background-color: #e8f0ff;
+    border-top-left-radius:0px;
+    border-bottom-left-radius:0px;
 }
 
 #mode_section span {
     font-weight: bold;
     pointer-events: none; /* So only the container triggers hover */
 }
-/* Hide the options by default */.options_container {
-    display: none;
+/* Hide the options by default */
+.options_container {
+    display: flex;
     position: absolute;
-    top: 100%;  /* below the #mode_section */
-    right: 0;
-    background-color: white;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    padding: 6px 8px;
-    border-radius: 7px;
+    top: 0px;  /* below the #mode_section */
+    right: 75px;
+    /* background-color: white; */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    padding: 0px px;
+    border-radius: 10px;
     z-index: 300;
     flex-direction: column;
     gap: 4px;
-    min-width: 120px;
+    /* min-width: 120px; */
 }
 
 /* Reveal on hover without affecting layout */
 #mode_section:hover .options_container {
     display: flex;
+    border-top-right-radius:0px;
 }
+
+.field_option {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    align-self: center;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    background-color: #ffffff00;
+    padding: 10px 14px;
+    border-radius: 2px;
+    box-shadow: 0 -px 8px rgba(0, 0, 0, 0.1);
+    margin: 0.2px 0;
+    width: 60px;
+}
+
+.field_option:hover {
+    background-color: #e0ecff;
+}
+
+.field_option:active {
+    background-color: #d0dcf5;
+    transform: scale(0.96);
+}
+
+
+
 
 /* Container for question list */
 div#question_list {
@@ -261,6 +293,8 @@ div#history_section > div > select {
     background-color: #f9fbff;
     font-size: 95%;
     transition: background-color 0.3s ease;
+    width: max-content;
+    margin: 0;
 }
 
 #mode_section summary {
@@ -292,27 +326,6 @@ button:active {
 
 #clear_history_button:hover {
     background: #e5e5ea;
-}
-.field_option {
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-    background-color: white;
-    padding: 6px 14px;
-    border-radius: 8px;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-    margin: 4px 0;
-}
-
-.field_option:hover {
-    background-color: #e0ecff;
-}
-
-.field_option:active {
-    background-color: #d0dcf5;
-    transform: scale(0.96);
 }
 
 .ripple {
