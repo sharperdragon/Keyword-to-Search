@@ -186,7 +186,6 @@ function updateOutput() {
     });
 
     outputText.value = `(${outputParts.join(" OR ")})`;
-}
 
 questionList.addEventListener("change", updateOutput);
 
