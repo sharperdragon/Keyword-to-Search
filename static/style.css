@@ -118,17 +118,18 @@ div#selection_buttons {
 }
 /* Hide the options by default */
 .options_container {
-    display: none;
+    display: flex;
     position: absolute;
     top: -2px;  /* below the #mode_section */
     right: 89px;
     /* background-color: white; */
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
     padding: 0px;
-    border-radius: 10px;
+    border-radius: 8px;
     z-index: 300;
     flex-direction: column;
     gap: 4px;
+    object-fit:contain;
     /* min-width: 120px; */
 }
 
@@ -137,6 +138,7 @@ div#selection_buttons {
     display: flex;
     border-top-right-radius:0px;
     border: 1px solid #d0e3ff;
+    overflow:hidden;
 }
 
 .field_option {
@@ -145,25 +147,28 @@ div#selection_buttons {
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.2s ease, transform 0.1s ease;
-    background-color: #ffffff00;
+    background-color: #ffffff;
     padding: 10px 14px;
-    border-radius: 2px;
+    border-radius: 0px;
     box-shadow: 0 -px 8px rgba(0, 0, 0, 0.1);
     margin: 0.2px 0;
     width: 60px;
+    overflow:hidden;
 }
 
 .field_option:hover {
     background-color: #e0ecff;
+    overflow:hidden;
 }
 
 .field_option:active {
     background-color: #d0dcf5;
     transform: scale(0.96);
+    overflow:hidden;
 }
 
 .selected_field_option {
-    background-color: #d0dcf5 !important;
+    background-color: #a1a3ff !important;
     color: #003366;
     font-weight: bold;
 }
