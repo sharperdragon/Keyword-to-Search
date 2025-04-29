@@ -128,7 +128,7 @@ div#selection_buttons {
     border-radius: 8px;
     z-index: 300;
     flex-direction: column;
-    gap: 4px;
+    gap: 0;
     object-fit:contain;
     /* min-width: 120px; */
 }
