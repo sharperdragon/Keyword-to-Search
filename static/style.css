@@ -118,7 +118,7 @@ div#selection_buttons {
 }
 /* Hide the options by default */
 .options_container {
-    display: flex;
+    display: none;
     position: absolute;
     top: -2px;  /* below the #mode_section */
     right: 89px;
