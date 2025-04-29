@@ -265,16 +265,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const clearButton = document.createElement("button");
     clearButton.id = "clear_history_button";
     clearButton.textContent = "Clear History";
-    clearButton.style.marginTop = "5px";
-    clearButton.style.marginLeft = "5px";
-    // Improved subtle style for "Clear History"
-    clearButton.style.backgroundColor = "#e0e7ff";
-    clearButton.style.color = "#333";
-    clearButton.style.fontSize = "90%";
-    clearButton.style.padding = "6px 10px";
-    clearButton.style.border = "1px solid #b0c4de";
-    clearButton.style.borderRadius = "8px";
-    clearButton.style.cursor = "pointer";
     clearButton.addEventListener("click", () => {
         if (confirm("Are you sure you want to clear all history?")) {
             localStorage.removeItem(STORAGE_KEY);
