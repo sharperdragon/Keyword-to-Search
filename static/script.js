@@ -21,32 +21,10 @@ function initializeOptions() {
     const existing = modeSection.querySelector(".options_container");
     if (existing) existing.remove();
 
-    // Create options container for horizontal expansion
-    const optionsContainer = document.createElement("div");
-    optionsContainer.className = "options_container";
-    optionsContainer.style.display = "none";
-    optionsContainer.style.flexDirection = "row";
-    optionsContainer.style.position = "absolute";
-    optionsContainer.style.top = "32px";
-    optionsContainer.style.right = "0";
-    optionsContainer.style.backgroundColor = "white";
-    optionsContainer.style.boxShadow = "0 5px 15px rgba(0,0,0,0.1)";
-    optionsContainer.style.padding = "4px 10px";
-    optionsContainer.style.borderRadius = "7px";
-    optionsContainer.style.zIndex = "100";
-    optionsContainer.style.gap = "18px";
 
     const fieldOptions = ["Text", "Front", "NID", "CID"];
     fieldOptions.forEach(option => {
-        const optionDiv = document.createElement("div");
-        optionDiv.className = "field_option";
-        optionDiv.textContent = option;
         optionDiv.setAttribute("data-value", option);
-        optionDiv.style.cursor = "pointer";
-        optionDiv.style.padding = "3px 14px";
-        optionDiv.style.borderRadius = "8px";
-        optionDiv.style.fontWeight = "bold";
-        optionDiv.style.background = option === selectedField ? "#e6f0ff" : "transparent";
         optionDiv.addEventListener("click", () => {
             selectedField = optionDiv.getAttribute("data-value"); // Update selected field
             // Update highlighting
