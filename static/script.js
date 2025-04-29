@@ -113,7 +113,7 @@ function updateQuestionList() {
         questionList.appendChild(label);
         questionList.appendChild(document.createElement("br"));
     });
-    updateOutput();
+    setTimeout(updateOutput, 0);
 }
 
 function toggleSelection(selectAll) {
