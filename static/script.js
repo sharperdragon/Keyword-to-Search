@@ -98,11 +98,15 @@ function updateQuestionList() {
         const item = match[1] ? `"${match[1].trim()}"` : match[2].trim();
         if (item) ids.push(item);
     }
-    
+
     ids.forEach((id, index) => {
         const label = document.createElement("label");
-        label.innerHTML = `
-            <input type="checkbox" value="${id}">
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.value = id;
+        checkbox.checked = true; // <-- This line
+        label.appendChild(checkbox);
+        label.innerHTML += `
             <span class="number">${index + 1})</span>
             <span class="space"> </span> 
             <span class="id">${id}</span>`;
