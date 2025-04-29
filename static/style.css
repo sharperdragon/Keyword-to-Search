@@ -35,7 +35,7 @@ label {
 textarea {
     width: 95%;
     margin-bottom: 10px;
-    position: relative;150px;
+    min-height:150px;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -117,7 +117,7 @@ div#selection_buttons {
 }
 /* Hide the options by default */
 .options_container {
-    display: flex;
+    display: none;
     position: absolute;
     top: 0px;  /* below the #mode_section */
     right: 75px;
