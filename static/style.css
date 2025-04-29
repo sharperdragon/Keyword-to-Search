@@ -5,6 +5,7 @@ body {
     max-width: -webkit-fill-available;
     background-color: aliceblue;
 }
+
 .container {
     max-width: 98vw;
     margin: 3% auto;
@@ -107,19 +108,18 @@ div#selection_buttons {
 
 /* Options container (for lateral expansion) */
 .options_container {
-    display: flex;
-    min-height: unset;
+    display: none;
     position: absolute;
-    top: -15px;
-    right: 86px;
+    top: 30px;
+    right: 0;
     background-color: white;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
-    padding: 0px 0.1px;
-    border-radius: 4px;
-    z-index: 99;
-    flex-direction: column; /* Align items horizontally */
-    justify-content: space-around; /* Align items to the left */
-    gap: 0.1px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 8px;
+    border-radius: 10px;
+    z-index: 100;
+    flex-direction: row; /* Align items horizontally */
+    justify-content: flex-start; /* Align items to the left */
+    gap: 20px;
 }
 
 /* Show options horizontally on hover over "Options" */
@@ -130,14 +130,11 @@ div#selection_buttons {
 
 /* Style for field options */
 .field_option {
-    min-height: unset;
     padding: 8px 12px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
     transition: background-color 0.2s ease;
-    border-radius: 10px;
-    z-index: 99;
-    margin: 0.5px 0;
+    border-radius: 8px;
 }
 
 /* Hover effect for field options */
@@ -154,7 +151,7 @@ div#question_list {
     overflow-y: hidden; /* Disable vertical overflow */
     width: 95%;
     padding: 10px;
-    max-height: 70vh;
+    max-height: 80vh;
     overflow: auto;
     box-sizing: border-box;
     border: 1px solid #b7d7fa;
