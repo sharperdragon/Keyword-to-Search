@@ -89,12 +89,12 @@ div#selection_buttons {
     position: absolute;  /* Fixed positioning */
     top: 2px;
     right: 4px;
-    width: 80px;         /* 🔒 Lock width */
+    width: 75px;         /* 🔒 Lock width */
     height: 20px;         /* 🔒 Lock height */
     background-color: #f9fbff;
-    border: 1px solid #d0e3ff;
+    border: 2px solid #cee1fe;
     border-radius: 8px;
-    padding: 4px 8px;
+    padding: 4px 7px;
     font-size: 95%;
     opacity: 0.6;
     transition: background-color 0.3s ease, opacity 0.3s ease;
@@ -109,6 +109,7 @@ div#selection_buttons {
     background-color: #e8f0ff;
     border-top-left-radius:0px;
     border-bottom-left-radius:0px;
+    border-left: none;
 }
 
 #mode_section span {
@@ -119,8 +120,8 @@ div#selection_buttons {
 .options_container {
     display: none;
     position: absolute;
-    top: 0px;  /* below the #mode_section */
-    right: 75px;
+    top: -2px;  /* below the #mode_section */
+    right: 89px;
     /* background-color: white; */
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
     padding: 0px;
@@ -135,6 +136,7 @@ div#selection_buttons {
 #mode_section:hover .options_container {
     display: flex;
     border-top-right-radius:0px;
+    border: 1px solid #d0e3ff;
 }
 
 .field_option {
