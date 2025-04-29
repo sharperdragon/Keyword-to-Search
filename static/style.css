@@ -185,6 +185,7 @@ div#question_list {
     border-radius: 10px;
     min-height: 100px; /* Set a fixed height */
     max-height:60vh;
+    overflow:auto;
 }
 
 /* Styling for each individual label (checkbox item) */
