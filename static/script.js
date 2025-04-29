@@ -113,6 +113,7 @@ function updateQuestionList() {
         questionList.appendChild(label);
         questionList.appendChild(document.createElement("br"));
     });
+    updateOutput();
 }
 
 function toggleSelection(selectAll) {
@@ -137,7 +138,6 @@ function updateOutput() {
             outputText.placeholder = `((${selectedField}:jo1) OR (${selectedField}:antisaccromyces) OR (${selectedField}:poopy))`;
         }
         return;
-    }
     }
     function updatePlaceholderExample(selectedField) {
         const outputBox = document.getElementById("output_text");
@@ -185,6 +185,7 @@ function updateOutput() {
     });
 
     outputText.value = `(${outputParts.join(" OR ")})`;
+}
 
 questionList.addEventListener("change", updateOutput);
 
