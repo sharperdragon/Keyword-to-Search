@@ -200,19 +200,27 @@ document.addEventListener("DOMContentLoaded", () => {
             option.addEventListener("click", (e) => {
                 const selectedField = option.getAttribute("data-value");
                 const fieldSelect = document.getElementById("field_select");
-                fieldSelect.value = selectedField;
+                if (fieldSelect) {
+                    fieldSelect.value = selectedField;
+                }
+        
+                // Clear previous selection
+                fieldOptions.forEach(opt => opt.classList.remove("selected_field_option"));
+                // Mark this option as selected
+                option.classList.add("selected_field_option");
+        
                 updateOutput();
-
+        
                 // Ripple effect
                 const ripple = document.createElement("span");
                 ripple.className = "ripple";
-
+        
                 const rect = option.getBoundingClientRect();
                 ripple.style.left = `${e.clientX - rect.left}px`;
                 ripple.style.top = `${e.clientY - rect.top}px`;
-
+        
                 option.appendChild(ripple);
-
+        
                 setTimeout(() => {
                     ripple.remove();
                 }, 700);
