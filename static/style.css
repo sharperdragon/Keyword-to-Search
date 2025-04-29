@@ -160,6 +160,12 @@ div#selection_buttons {
     transform: scale(0.96);
 }
 
+.selected_field_option {
+    background-color: #d0dcf5 !important;
+    color: #003366;
+    font-weight: bold;
+}
+
 
 
 
