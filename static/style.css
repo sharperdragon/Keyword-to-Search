@@ -132,7 +132,7 @@ div#selection_buttons {
 #mode_section:hover .field_options,
 .field_options:hover {
     display: flex;
-    flex-direction: column;;
+    flex-direction: column;
 }
 
 .options_container {
