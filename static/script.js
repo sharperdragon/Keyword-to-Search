@@ -127,7 +127,12 @@ function updateOutput() {
     const selectedField = document.getElementById("field_select").value || "Text";
 
     if (!selectedIDs.length) {
-        outputText.value = "";
+        // No keywords selected — show placeholder example
+        if (selectedField === "Text" || selectedField === "Front") {
+            outputText.value = `((${selectedField}:*jo1*) OR (${selectedField}:*antisaccromyces*) OR (${selectedField}:*poopy*))`;
+        } else {
+            outputText.value = `((${selectedField}:jo1) OR (${selectedField}:antisaccromyces) OR (${selectedField}:poopy))`;
+        }
         return;
     }
 
