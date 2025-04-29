@@ -237,11 +237,25 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         const fieldOptions = document.querySelectorAll(".field_option");
         fieldOptions.forEach(option => {
-            option.addEventListener("click", () => {
+            option.addEventListener("click", (e) => {
                 const selectedField = option.getAttribute("data-value");
                 const fieldSelect = document.getElementById("field_select");
-                fieldSelect.value = selectedField; // Update the hidden field select value
-                updateOutput(); // Update the output based on the selected field
+                fieldSelect.value = selectedField;
+                updateOutput();
+
+                // Ripple effect
+                const ripple = document.createElement("span");
+                ripple.className = "ripple";
+
+                const rect = option.getBoundingClientRect();
+                ripple.style.left = `${e.clientX - rect.left}px`;
+                ripple.style.top = `${e.clientY - rect.top}px`;
+
+                option.appendChild(ripple);
+
+                setTimeout(() => {
+                    ripple.remove();
+                }, 700);
             });
         });
     }
