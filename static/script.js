@@ -207,9 +207,6 @@ copyButton.addEventListener("click", () => {
 
 // Ensure dropdown loads on page open
 document.addEventListener("DOMContentLoaded", () => {
-    if (!localStorage.getItem(STORAGE_KEY)) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify([{input: "Apr 21, 10:00 → (Text:*test*)", field: "Text"}]));
-    }
     updateHistoryDropdown();
     // Load latest history and populate input/field if history exists
     const history = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
