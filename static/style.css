@@ -44,7 +44,7 @@ textarea {
 }
 
 /* Fix all divs to maintain consistent height */
-div {
+div :not(.options_container) {
     position: relative; /* Prevents hover effects from changing layout */
     min-height: 50px; /* Set a minimum height for all divs */
     margin: 10px 0; /* Space around divs */
@@ -125,7 +125,7 @@ div#selection_buttons {
     flex-direction: row; /* Align items horizontally */
     justify-content: flex-start; /* Align items to the left */
     gap: 20px;
-    margin: 0.5px 0
+    margin: 0.5px 0;
 }
 
 /* Show options horizontally on hover over either "Options" or the field options */
