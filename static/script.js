@@ -10,8 +10,6 @@ const deselectAllButton = document.getElementById("deselect_all");
 const copyButton = document.getElementById("copy_button");
 const historySelect = document.getElementById("history_select");
 
-let selectedField = "Text"; // Default field value
-
 // Initialize Options (Field Selection) - modularized
 function initializeOptions() {
     const modeSection = document.getElementById("mode_section");
@@ -27,8 +25,12 @@ function initializeOptions() {
         optionDiv.textContent = option;
         optionDiv.setAttribute("data-value", option);
         optionDiv.addEventListener("click", () => {
-            selectedField = optionDiv.getAttribute("data-value"); // Update selected field
-            updateOutput(); // Update output based on the selected field
+            const selectedField = optionDiv.getAttribute("data-value");
+            const fieldSelect = document.getElementById("field_select");
+            if (fieldSelect) {
+                fieldSelect.value = selectedField; // Update the hidden field select value
+                updateOutput(); // Update output based on the selected field
+            }
         });
         optionsContainer.appendChild(optionDiv);
     });
@@ -49,7 +51,7 @@ selectAllButton.addEventListener("click", () => {
 
 function saveToHistory(entry) {
     if (!entry || !entry.trim()) return;
-    const fieldValue = selectedField;
+    const fieldValue = document.getElementById("field_select") ? document.getElementById("field_select").value : "Text";
     let history = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
     history = history.filter(e => e.input !== entry); // Remove duplicates
     history.unshift({input: entry, field: fieldValue}); // Add to top
@@ -83,8 +85,9 @@ historySelect.addEventListener("change", () => {
         try {
             const selected = JSON.parse(historySelect.value);
             inputField.value = selected.input;
-            if(selected.field) {
-                selectedField = selected.field;
+            const fieldSelect = document.getElementById("field_select");
+            if(fieldSelect && selected.field) {
+                fieldSelect.value = selected.field;
             }
             updateQuestionList();
         } catch(e) {
@@ -143,10 +146,11 @@ function toggleSelection(selectAll) {
     });
 }
 
-// Update the output based on the selected field
 function updateOutput() {
     const selectedIDs = Array.from(document.querySelectorAll("#question_list input:checked"))
                              .map(input => input.value);
+
+    const selectedField = document.getElementById("field_select").value || "Text";
 
     if (!selectedIDs.length) {
         outputText.value = "";
@@ -210,5 +214,28 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem(STORAGE_KEY, JSON.stringify([{input: "Apr 21, 10:00 → (Text:*test*)", field: "Text"}]));
     }
     updateHistoryDropdown();
-    initializeOptions(); // Initialize field options on page load
+    // Initialize options on page load
+    if (typeof initializeOptions === "function") {
+        initializeOptions();
+    }
+    // --- BEGIN mode_section population ---
+    const modeSection = document.getElementById("mode_section");
+    if (modeSection) {
+        const fieldSelect = document.getElementById("field_select");
+        if (fieldSelect) {
+            fieldSelect.addEventListener("change", updateOutput);
+        }
+        const fieldOptions = document.querySelectorAll("#mode_section .field_option");
+        fieldOptions.forEach(option => {
+            option.addEventListener("click", () => {
+                const selectedField = option.getAttribute("data-value");
+                const fieldSelect = document.getElementById("field_select");
+                if (fieldSelect) {
+                    fieldSelect.value = selectedField; // Update the hidden field select value
+                    updateOutput(); // Update the output based on the selected field
+                }
+            });
+        });
+    }
+    // --- END mode_section population ---
 });
