@@ -106,7 +106,7 @@ function updateQuestionList() {
         checkbox.value = id;
         checkbox.checked = true;
         label.appendChild(checkbox);
-        checkbox.dispatchEvent(new Event("change")); 
+        checkbox.dispatchEvent(new Event("change")); // <-- important new line
         label.innerHTML += `
             <span class="number">${index + 1})</span>
             <span class="space"> </span> 
@@ -114,7 +114,6 @@ function updateQuestionList() {
         questionList.appendChild(label);
         questionList.appendChild(document.createElement("br"));
     });
-    updateOutput();
 }
 
 function toggleSelection(selectAll) {
