@@ -5,7 +5,6 @@ body {
     max-width: -webkit-fill-available;
     background-color: aliceblue;
 }
-
 .container {
     max-width: 98vw;
     margin: 3% auto;
