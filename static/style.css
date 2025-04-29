@@ -109,16 +109,14 @@ div#selection_buttons {
 /* Hide the options by default */
 .field_options {
 
-    padding: 8px 12px;
+    padding: 2px 10px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 16px;
     transition: background-color 0.2s ease;
     border-radius: 8px;
-
-   /*  display: ; */
     min-height: unset;
     position: absolute;
-    top: 30px;
+    top: -10px;
     right: 0;
     background-color: white;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
@@ -144,12 +142,12 @@ div#selection_buttons {
     right: 0;
     background-color: white;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    padding: 8px;
-    border-radius: 10px;
+    padding: 4px;
+    border-radius: 7px;
     z-index: 100;
     flex-direction: column; /* Align items vertically */
     justify-content: space-around;
-    gap: 20px;
+    gap: 2px;
 }
 /* Show options horizontally on hover over either "Options" or the field options */
 #mode_section:hover .options_container,
