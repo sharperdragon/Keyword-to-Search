@@ -86,7 +86,7 @@ div#selection_buttons {
     margin-top: 4px;
 }
 
-/* Basic structure for the Options dropdown */
+/* Basic structure for the Options button */
 #mode_section {
     position: absolute;
     top: 20px;
@@ -106,55 +106,44 @@ div#selection_buttons {
     font-weight: bold;
 }
 
-/* Hide the options by default */
-.field_options {
-
-    padding: 8px 12px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.2s ease;
-    border-radius: 8px;
-
-   /*  display: ; */
+/* Options container (for lateral expansion) */
+.options_container {
+    display: flex;
     min-height: unset;
     position: absolute;
-    top: 30px;
-    right: 0;
+    top: -15px;
+    right: 86px;
     background-color: white;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    padding: 3px 10px;
-    border-radius: 10px;
-    z-index: 100;
-    flex-direction: row; /* Align items horizontally */
-    justify-content: flex-start; /* Align items to the left */
-    gap: 20px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+    padding: 0px 0.1px;
+    border-radius: 4px;
+    z-index: 99;
+    flex-direction: column; /* Align items horizontally */
+    justify-content: space-around; /* Align items to the left */
+    gap: 0.1px;
 }
 
-/* Show options horizontally on hover over either "Options" or the field options */
-#mode_section:hover .field_options,
-.field_options:hover {
-    display: flex;
-    flex-direction: column;;
-}
-
-.options_container {
-    display: none;
-    position: absolute;
-    top: 17px;
-    right: 0;
-    background-color: white;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    padding: 8px;
-    border-radius: 10px;
-    z-index: 100;
-    flex-direction: row; /* Align items horizontally */
-    justify-content: flex-start; /* Align items to the left */
-    gap: 20px;
-}
-/* Show options horizontally on hover over either "Options" or the field options */
+/* Show options horizontally on hover over "Options" */
 #mode_section:hover .options_container,
 .options_container:hover {
     display: flex;
+}
+
+/* Style for field options */
+.field_option {
+    min-height: unset;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease;
+    border-radius: 10px;
+    z-index: 99;
+    margin: 0.5px 0;
+}
+
+/* Hover effect for field options */
+.field_option:hover {
+    background-color: #e0e0e5;
 }
 
 /* Container for question list */
@@ -166,6 +155,8 @@ div#question_list {
     overflow-y: hidden; /* Disable vertical overflow */
     width: 95%;
     padding: 10px;
+    max-height: 70vh;
+    overflow: auto;
     box-sizing: border-box;
     border: 1px solid #b7d7fa;
     border-radius: 10px;
