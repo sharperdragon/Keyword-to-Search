@@ -104,7 +104,7 @@ function updateQuestionList() {
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.value = id;
-        checkbox.checked = true; // <-- This line
+        checkbox.checked = true; 
         label.appendChild(checkbox);
         label.innerHTML += `
             <span class="number">${index + 1})</span>
