@@ -123,7 +123,7 @@ div#selection_buttons {
     right: 75px;
     /* background-color: white; */
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
-    padding: 0px px;
+    padding: 0px;
     border-radius: 10px;
     z-index: 300;
     flex-direction: column;
@@ -140,8 +140,6 @@ div#selection_buttons {
 .field_option {
     position: relative;
     overflow: hidden;
-    text-align: center;
-    align-self: center;
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.2s ease, transform 0.1s ease;
@@ -282,25 +280,6 @@ div#history_section > div > select {
     user-select: none;
     z-index: 1000;
     white-space: nowrap;
-}
-
-/* Mode Options Styling */
-#mode_section {
-    margin-top: 2px;
-    border: 1px solid #d0e3ff;
-    border-radius: 8px;
-    padding: 4px 8px;
-    background-color: #f9fbff;
-    font-size: 95%;
-    transition: background-color 0.3s ease;
-    width: max-content;
-    margin: 0;
-}
-
-#mode_section summary {
-    font-weight: bold;
-    cursor: pointer;
-    padding: 4px 0;
 }
 
 /* Subtle button press animation */
