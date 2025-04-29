@@ -5,7 +5,6 @@ body {
     max-width: -webkit-fill-available;
     background-color: aliceblue;
 }
-
 .container {
     max-width: 98vw;
     margin: 3% auto;
@@ -155,7 +154,7 @@ div#question_list {
     overflow-y: hidden; /* Disable vertical overflow */
     width: 95%;
     padding: 10px;
-    max-height: 80vh;
+    max-height: 70vh;
     overflow: auto;
     box-sizing: border-box;
     border: 1px solid #b7d7fa;
