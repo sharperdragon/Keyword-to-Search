@@ -129,9 +129,9 @@ function updateOutput() {
     if (!selectedIDs.length) {
         // No keywords selected — show placeholder example
         if (selectedField === "Text" || selectedField === "Front") {
-            outputText.value = `((${selectedField}:*jo1*) OR (${selectedField}:*antisaccromyces*) OR (${selectedField}:*poopy*))`;
+            outputText.placeholder = `((${selectedField}:*jo1*) OR (${selectedField}:*antisaccromyces*) OR (${selectedField}:*poopy*))`;
         } else {
-            outputText.value = `((${selectedField}:jo1) OR (${selectedField}:antisaccromyces) OR (${selectedField}:poopy))`;
+            outputText.placeholder = `((${selectedField}:jo1) OR (${selectedField}:antisaccromyces) OR (${selectedField}:poopy))`;
         }
         return;
     }
