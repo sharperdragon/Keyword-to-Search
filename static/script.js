@@ -127,13 +127,14 @@ function updateOutput() {
     const selectedField = document.getElementById("field_select").value || "Text";
 
     if (!selectedIDs.length) {
-        // No keywords selected — show placeholder example
+        outputText.value = ""; // clear any text
         if (selectedField === "Text" || selectedField === "Front") {
             outputText.placeholder = `((${selectedField}:*jo1*) OR (${selectedField}:*antisaccromyces*) OR (${selectedField}:*poopy*))`;
         } else {
             outputText.placeholder = `((${selectedField}:jo1) OR (${selectedField}:antisaccromyces) OR (${selectedField}:poopy))`;
         }
         return;
+    }
     }
     function updatePlaceholderExample(selectedField) {
         const outputBox = document.getElementById("output_text");
