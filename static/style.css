@@ -85,26 +85,34 @@ div#selection_buttons {
     margin-top: 4px;
 }
 
-/* Basic structure for the Options dropdown */
 #mode_section {
-    position: relative;
+    position: absolute;  /* Fixed positioning */
     top: 20px;
     right: 20px;
+    width: 100px;         /* 🔒 Lock width */
+    height: 30px;         /* 🔒 Lock height */
+    background-color: #f9fbff;
+    border: 1px solid #d0e3ff;
+    border-radius: 8px;
+    padding: 4px 8px;
+    font-size: 95%;
     opacity: 0.6;
-    transition: opacity 0.3s ease;
-    cursor: pointer;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
 }
 
 #mode_section:hover {
     opacity: 1;
+    background-color: #e8f0ff;
 }
 
-/* Label for "Options" */
 #mode_section span {
-    padding: 5px 8px;
     font-weight: bold;
+    pointer-events: none; /* So only the container triggers hover */
 }
-
 /* Hide the options by default */
 /* .field_options remains unchanged */
 .field_options {
