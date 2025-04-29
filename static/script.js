@@ -208,16 +208,20 @@ copyButton.addEventListener("click", () => {
 // Ensure dropdown loads on page open
 document.addEventListener("DOMContentLoaded", () => {
     updateHistoryDropdown();
-    // Load latest history and populate input/field if history exists
+    // Load latest history and populate input/field if history exists, but only if input is meaningful
     const history = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
     if (history.length > 0) {
         const latest = history[0];
-        inputField.value = latest.input;
-        const fieldSelect = document.getElementById("field_select");
-        if (fieldSelect && latest.field) {
-            fieldSelect.value = latest.field;
+        if (latest && typeof latest.input === "string" && latest.input.trim().length > 5) {
+            inputField.value = latest.input;
+            const fieldSelect = document.getElementById("field_select");
+            if (fieldSelect && latest.field) {
+                fieldSelect.value = latest.field;
+            }
+            updateQuestionList();
+        } else {
+            inputField.value = "";
         }
-        updateQuestionList();
     }
     // --- BEGIN mode_section population ---
     const modeSection = document.getElementById("mode_section");
