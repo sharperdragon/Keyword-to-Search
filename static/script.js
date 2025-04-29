@@ -199,6 +199,7 @@ copyButton.addEventListener("click", () => {
             lastSavedInput = val;
         }
         updateHistoryDropdown();
+        
         copyButton.textContent = "Copied!";
         setTimeout(() => (copyButton.textContent = "Copy to Clipboard"), 1500);
     });
@@ -210,6 +211,17 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem(STORAGE_KEY, JSON.stringify([{input: "Apr 21, 10:00 → (Text:*test*)", field: "Text"}]));
     }
     updateHistoryDropdown();
+    // Load latest history and populate input/field if history exists
+    const history = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    if (history.length > 0) {
+        const latest = history[0];
+        inputField.value = latest.input;
+        const fieldSelect = document.getElementById("field_select");
+        if (fieldSelect && latest.field) {
+            fieldSelect.value = latest.field;
+        }
+        updateQuestionList();
+    }
     // --- BEGIN mode_section population ---
     const modeSection = document.getElementById("mode_section");
     if (modeSection) {
