@@ -218,6 +218,9 @@ document.addEventListener("DOMContentLoaded", () => {
             if (fieldSelect && latest.field) {
                 fieldSelect.value = latest.field;
             }
+            if (fieldSelect && !latest.field) {
+                fieldSelect.value = "Text";
+            }
             updateQuestionList();
         } else {
             inputField.value = "";
@@ -228,6 +231,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (modeSection) {
         const fieldSelect = document.getElementById("field_select");
         if (fieldSelect) {
+            if (!fieldSelect.value) {
+                fieldSelect.value = "Text";
+            }
             fieldSelect.addEventListener("change", updateOutput);
         }
         const fieldOptions = document.querySelectorAll(".field_option");
