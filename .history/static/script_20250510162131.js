@@ -155,7 +155,6 @@ function updateOutput() {
             outputBox.placeholder = "((NID:jo1) OR (NID:antisaccromyces) OR (NID:poopy))";
         } else if (selectedField === "Any") {
             outputBox.placeholder = "((jo1) OR (antisaccromyces) OR (poopy))";
-        }
     }
     const outputParts = [];
 
@@ -169,35 +168,26 @@ function updateOutput() {
     };
     const needsWildcard = fieldBehavior[selectedField] ?? true;
 
-    updatePlaceholderExample(selectedField);
+    selectedIDs.forEach(entry => {
+        const words = entry.trim().split(/\s+/).map(w => w.trim()).filter(w => w.length > 0);
 
-    if (selectedField === "Any") {
-        selectedIDs.forEach(entry => {
-            if (entry) {
-                outputParts.push(`(${entry})`);
+        if (words.length === 1) {
+            if (needsWildcard) {
+                outputParts.push(`(${selectedField}:*${words[0]}*)`);
+            } else {
+                outputParts.push(`(${selectedField}:${words[0]})`);
             }
-        });
-    } else {
-        selectedIDs.forEach(entry => {
-            const words = entry.trim().split(/\s+/).map(w => w.trim()).filter(w => w.length > 0);
-            if (words.length === 1) {
+        } else if (words.length > 1) {
+            const wordClauses = words.map(w => {
                 if (needsWildcard) {
-                    outputParts.push(`(${selectedField}:*${words[0]}*)`);
+                    return `(${selectedField}:*${w}*)`;
                 } else {
-                    outputParts.push(`(${selectedField}:${words[0]})`);
+                    return `(${selectedField}:${w})`;
                 }
-            } else if (words.length > 1) {
-                const wordClauses = words.map(w => {
-                    if (needsWildcard) {
-                        return `(${selectedField}:*${w}*)`;
-                    } else {
-                        return `(${selectedField}:${w})`;
-                    }
-                });
-                outputParts.push(`(${wordClauses.join(" ")})`);
-            }
-        });
-    }
+            });
+            outputParts.push(`(${wordClauses.join(" ")})`);
+        }
+    });
 
     outputText.value = `(${outputParts.join(" OR ")})`;
 }
@@ -223,6 +213,24 @@ copyButton.addEventListener("click", () => {
 // Ensure dropdown loads on page open
 document.addEventListener("DOMContentLoaded", () => {
     updateHistoryDropdown();
+    // Load latest history and populate input/field if history exists, but only if input is meaningful
+    const history = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    if (history.length > 0) {
+        const latest = history[0];
+        if (latest && typeof latest.input === "string" && latest.input.trim().length > 5) {
+            inputField.value = latest.input;
+            const fieldSelect = document.getElementById("field_select");
+            if (fieldSelect && latest.field) {
+                fieldSelect.value = latest.field;
+            }
+            if (fieldSelect && !latest.field) {
+                fieldSelect.value = "Text";
+            }
+            updateQuestionList();
+        } else {
+            inputField.value = "";
+        }
+    }
     // --- BEGIN mode_section population ---
     const modeSection = document.getElementById("mode_section");
     if (modeSection) {
@@ -240,7 +248,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 const fieldSelect = document.getElementById("field_select");
                 if (fieldSelect) {
                     fieldSelect.value = selectedField;
-                    fieldSelect.dispatchEvent(new Event("change"));
                 }
         
                 // Clear previous selection
@@ -267,24 +274,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
     // --- END mode_section population ---
-    // Load latest history and populate input/field if history exists, but only if input is meaningful
-    const history = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-    if (history.length > 0) {
-        const latest = history[0];
-        if (latest && typeof latest.input === "string" && latest.input.trim().length > 5) {
-            inputField.value = latest.input;
-            const fieldSelect = document.getElementById("field_select");
-            if (fieldSelect && latest.field) {
-                fieldSelect.value = latest.field;
-            }
-            if (fieldSelect && !latest.field) {
-                fieldSelect.value = "Text";
-            }
-            updateQuestionList();
-        } else {
-            inputField.value = "";
-        }
-    }
     // Insert Clear History button after history dropdown
     const historyParent = historySelect.parentElement;
     const clearButton = document.createElement("button");
