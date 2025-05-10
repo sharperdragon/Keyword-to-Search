@@ -160,7 +160,7 @@ function updateOutput() {
     const fieldBehavior = {
         "Text": true,
         "Front": true,
-        "Extra": true,
+        
         "CID": false,
         "NID": false
     };

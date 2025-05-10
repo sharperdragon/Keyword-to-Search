@@ -147,8 +147,8 @@ function updateOutput() {
             outputBox.placeholder = "((Text:*jo1*) OR (Text:*antisaccromyces*) OR (Text:*poopy*))";
         } else if (selectedField === "Front") {
             outputBox.placeholder = "((Front:*jo1*) OR (Front:*antisaccromyces*) OR (Front:*poopy*))";
-        } else if (selectedField === "Extra") {
-            outputBox.placeholder = "((Extra:*jo1*) OR (Extra:*antisaccromyces*) OR (Extra:*poopy*))";
+        } else if (selectedField === "Front") {
+        outputBox.placeholder = "((Front:*jo1*) OR (Front:*antisaccromyces*) OR (Front:*poopy*))";
         } else if (selectedField === "CID") {
             outputBox.placeholder = "((CID:jo1) OR (CID:antisaccromyces) OR (CID:poopy))";
         } else if (selectedField === "NID") {
@@ -160,7 +160,6 @@ function updateOutput() {
     const fieldBehavior = {
         "Text": true,
         "Front": true,
-        "Extra": true,
         "CID": false,
         "NID": false
     };
