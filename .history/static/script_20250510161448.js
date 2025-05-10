@@ -164,37 +164,29 @@ function updateOutput() {
         "Extra": true,
         "CID": false,
         "NID": false
-        
     };
     const needsWildcard = fieldBehavior[selectedField] ?? true;
 
-    if (selectedField === "Any") {
-        selectedIDs.forEach(entry => {
-            if (entry) {
-                outputParts.push(`(${entry})`);
+    selectedIDs.forEach(entry => {
+        const words = entry.trim().split(/\s+/).map(w => w.trim()).filter(w => w.length > 0);
+
+        if (words.length === 1) {
+            if (needsWildcard) {
+                outputParts.push(`(${selectedField}:*${words[0]}*)`);
+            } else {
+                outputParts.push(`(${selectedField}:${words[0]})`);
             }
-        });
-    } else {
-        selectedIDs.forEach(entry => {
-            const words = entry.trim().split(/\s+/).map(w => w.trim()).filter(w => w.length > 0);
-            if (words.length === 1) {
+        } else if (words.length > 1) {
+            const wordClauses = words.map(w => {
                 if (needsWildcard) {
-                    outputParts.push(`(${selectedField}:*${words[0]}*)`);
+                    return `(${selectedField}:*${w}*)`;
                 } else {
-                    outputParts.push(`(${selectedField}:${words[0]})`);
+                    return `(${selectedField}:${w})`;
                 }
-            } else if (words.length > 1) {
-                const wordClauses = words.map(w => {
-                    if (needsWildcard) {
-                        return `(${selectedField}:*${w}*)`;
-                    } else {
-                        return `(${selectedField}:${w})`;
-                    }
-                });
-                outputParts.push(`(${wordClauses.join(" ")})`);
-            }
-        });
-    }
+            });
+            outputParts.push(`(${wordClauses.join(" ")})`);
+        }
+    });
 
     outputText.value = `(${outputParts.join(" OR ")})`;
 }
