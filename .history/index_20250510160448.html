@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anki Easy Search</title>
+    <link rel="stylesheet" href="/Keyword-to-Search/static/style.css">
+    <link rel="icon" href="/UWorld-ID-to-Anki-Tag/favicon.png" type="image/png">
+</head>
+<body>
+    <div class="container">
+        <!-- Mode Section with Options hover effect -->
+        <div id="mode_section">
+            <span>Options</span>
+            <div class="options_container">
+                <div class="field_option selected_field_option" data-value="Text">Text</div>
+                <div class="field_option" data-value="Front">Front</div>
+                <div class="field_option" data-value="Extra">Extra</div>
+                <div class="field_option" data-value="NID">NID</div>
+                <div class="field_option" data-value="CID">CID</div>
+                <div class="field_option" data-value="Extra">Extra</div>
+            </div>
+            <select id="field_select" style="display:none;">
+                <option value="Text" selected>Text</option>
+                <option value="Front">Front</option>
+                <option value="Extra">Extra</option>
+                <option value="NID">NID</option>
+                <option value="CID">CID</option>
+            </select>
+        </div>
+        <h1>Keyword to Anki Search</h1>
+        <div class="input-history-wrapper sticky-history">
+            <!-- Input Field -->
+            <div>
+                <label for="input_ids">Keywords (comma-separated):</label>
+                <textarea id="input_ids" rows="4" placeholder="e.g., anti-Jo1, coronary artery, BRCA1..."></textarea>
+            </div>
+
+            <!-- History Dropdown -->
+            <div style="min-width: 220px; max-width: 300px;">
+                <label for="history_select">History:</label>
+                <select id="history_select" style="width: 100%;">
+                    <option value=""> - Select from history - </option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Buttons for Select All/Deselect All -->
+        <div id="selection_buttons">
+            <button id="select_all">Select All</button>
+            <button id="deselect_all">Deselect All</button>
+            <button id="copy_button">Copy to Clipboard</button>
+        </div>
+
+        <!-- Generated Questions -->
+        <div id="question_list"></div>
+
+        <!-- Output Section -->
+        <label for="output_text">Output <span style="opacity:0.7">(paste into Anki browser)</span></label>
+        <textarea id="output_text" rows="5" readonly></textarea>
+    </div>
+
+    <script type="module" src="./static/script.js"></script>
+    <footer>Version 1.0.0</footer>
+</body>
+</html>
