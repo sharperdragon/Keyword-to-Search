@@ -1,3 +1,19 @@
+export function escapeRegex(term) {
+    return term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+export function regexWrap(term, field) {
+    const safeTerm = escapeRegex(term);
+    return `"${field}:re:\\b${safeTerm}\\b"`;
+}
+
+export function toggleSelection(selectAll, container = document) {
+    const checkboxes = container.querySelectorAll("input[type='checkbox']");
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = selectAll;
+        checkbox.dispatchEvent(new Event("change"));
+    });
+}
 // Utility functions for Keyword-to-Search
 
 export function debounce(func, delay = 300) {

@@ -1,10 +1,7 @@
-import { debounce, createDropdown, buildSearchClause, loadLocalStorage} from './utils.js';
+import { debounce, createDropdown, buildSearchClause, loadLocalStorage, escapeRegex, regexWrap, toggleSelection } from './utils.js';
 
 const regexToggle = document.getElementById("regex_toggle");
 
-function escapeRegex(term) {
-    return term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
 
 let lastSavedInput = "";
 const STORAGE_KEY = "keywordSearchHistory";
@@ -125,18 +122,6 @@ function updateQuestionList() {
     setTimeout(updateOutput, 0);
 }
 
-function toggleSelection(selectAll) {
-    const checkboxes = questionList.querySelectorAll("input[type='checkbox']");
-    checkboxes.forEach(checkbox => {
-        checkbox.checked = selectAll;
-        checkbox.dispatchEvent(new Event("change"));
-    });
-}
-
-function regexWrap(term, field) {
-    const safeTerm = escapeRegex(term);
-    return `"${field}:re:\\b${safeTerm}\\b"`;
-}
 
 function updateOutput() {
     const selectedIDs = Array.from(document.querySelectorAll("#question_list input:checked"))
