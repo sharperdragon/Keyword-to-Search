@@ -1,4 +1,9 @@
 import { debounce, createDropdown, buildSearchClause, loadLocalStorage} from './utils.js';
+
+function escapeRegex(term) {
+    return term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 let lastSavedInput = "";
 const STORAGE_KEY = "keywordSearchHistory";
 
@@ -99,7 +104,9 @@ function updateQuestionList() {
         if (item) ids.push(item);
     }
 
-    ids.forEach((id, index) => {
+    const filteredIDs = ids.filter(id => id && id.trim().length > 0);
+
+    filteredIDs.forEach((id, index) => {
         const label = document.createElement("label");
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
@@ -125,12 +132,14 @@ function toggleSelection(selectAll) {
 }
 
 function regexWrap(term, field) {
-    return `"${field}:re:\\b${term}\\b"`;
+    const safeTerm = escapeRegex(term);
+    return `"${field}:re:\\b${safeTerm}\\b"`;
 }
 
 function updateOutput() {
     const selectedIDs = Array.from(document.querySelectorAll("#question_list input:checked"))
-                             .map(input => input.value);
+                             .map(input => input.value)
+                             .filter(Boolean);
 
     const selectedField = document.getElementById("field_select").value || "Text";
 
