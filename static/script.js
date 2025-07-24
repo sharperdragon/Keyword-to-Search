@@ -124,20 +124,6 @@ function toggleSelection(selectAll) {
     });
 }
 
-function updatePlaceholderExample(selectedField) {
-    const outputBox = document.getElementById("output_text");
-    if (!outputBox) return;
-
-    fetch(`/placeholder?field=${selectedField}`)
-        .then(res => res.json())
-        .then(data => {
-            outputBox.placeholder = data.placeholder;
-        })
-        .catch(() => {
-            outputBox.placeholder = ""; // fallback
-        });
-}
-
 function updateOutput() {
     const selectedIDs = Array.from(document.querySelectorAll("#question_list input:checked"))
                              .map(input => input.value);
@@ -153,24 +139,67 @@ function updateOutput() {
         }
         return;
     }
+    function updatePlaceholderExample(selectedField) {
+        const outputBox = document.getElementById("output_text");
+        if (!outputBox) return;
+    
+        if (selectedField === "Text") {
+            outputBox.placeholder = "((Text:*jo1*) OR (Text:*antisaccromyces*) OR (Text:*poopy*))";
+        } else if (selectedField === "Front") {
+            outputBox.placeholder = "((Front:*jo1*) OR (Front:*antisaccromyces*) OR (Front:*poopy*))";
+        } else if (selectedField === "Extra") {
+            outputBox.placeholder = "((Extra:*jo1*) OR (Extra:*antisaccromyces*) OR (Extra:*poopy*))";
+        } else if (selectedField === "CID") {
+            outputBox.placeholder = "((CID:jo1) OR (CID:antisaccromyces) OR (CID:poopy))";
+        } else if (selectedField === "NID") {
+            outputBox.placeholder = "((NID:jo1) OR (NID:antisaccromyces) OR (NID:poopy))";
+        } else if (selectedField === "Any") {
+            outputBox.placeholder = "((jo1) OR (antisaccromyces) OR (poopy))";
+        }
+    }
+    const outputParts = [];
+
+    const fieldBehavior = {
+        "Text": true,
+        "Front": true,
+        "Extra": true,
+        "CID": false,
+        "NID": false
+        
+    };
+    const needsWildcard = fieldBehavior[selectedField] ?? true;
+
     updatePlaceholderExample(selectedField);
 
-    fetch("/build-clause", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            terms: selectedIDs,
-            field: selectedField
-        })
-    })
-    .then(res => res.json())
-    .then(data => {
-        outputText.value = data.clause;
-    })
-    .catch(err => {
-        console.error("Failed to build clause:", err);
-        outputText.value = ""; // fallback
-    });
+    if (selectedField === "Any") {
+        selectedIDs.forEach(entry => {
+            if (entry) {
+                outputParts.push(`(${entry})`);
+            }
+        });
+    } else {
+        selectedIDs.forEach(entry => {
+            const words = entry.trim().split(/\s+/).map(w => w.trim()).filter(w => w.length > 0);
+            if (words.length === 1) {
+                if (needsWildcard) {
+                    outputParts.push(`(${selectedField}:*${words[0]}*)`);
+                } else {
+                    outputParts.push(`(${selectedField}:${words[0]})`);
+                }
+            } else if (words.length > 1) {
+                const wordClauses = words.map(w => {
+                    if (needsWildcard) {
+                        return `(${selectedField}:*${w}*)`;
+                    } else {
+                        return `(${selectedField}:${w})`;
+                    }
+                });
+                outputParts.push(`(${wordClauses.join(" ")})`);
+            }
+        });
+    }
+
+    outputText.value = `(${outputParts.join(" OR ")})`;
 }
 
 questionList.addEventListener("change", updateOutput);
