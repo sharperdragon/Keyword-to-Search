@@ -30,6 +30,7 @@ label {
     margin: 0;
     display: block;
     padding: 1px;
+    align-items: center;
 }
 
 textarea {
@@ -384,4 +385,9 @@ button:active {
 }
 #mode_section {
     padding-right: 40px; /* give room for the toggle */
+}
+
+label#REGEX {
+    display: inline-flex;
+    align-items: center;
 }
