@@ -124,6 +124,10 @@ function toggleSelection(selectAll) {
     });
 }
 
+function regexWrap(term, field) {
+    return `"${field}:re:\\b${term}\\b"`;
+}
+
 function updateOutput() {
     const selectedIDs = Array.from(document.querySelectorAll("#question_list input:checked"))
                              .map(input => input.value);
@@ -175,6 +179,14 @@ function updateOutput() {
         selectedIDs.forEach(entry => {
             if (entry) {
                 outputParts.push(`(${entry})`);
+            }
+        });
+    } else if (selectedField === "Text" || selectedField === "Front" || selectedField === "Extra") {
+        selectedIDs.forEach(entry => {
+            const words = entry.trim().split(/\s+/).map(w => w.trim()).filter(w => w.length > 0);
+            if (words.length > 0) {
+                const wordClauses = words.map(w => regexWrap(w, selectedField));
+                outputParts.push(`(${wordClauses.join(" ")})`);
             }
         });
     } else {
