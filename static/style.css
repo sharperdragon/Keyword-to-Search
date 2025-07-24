@@ -96,6 +96,7 @@ div#selection_buttons {
     border: 2px solid #cee1fe;
     border-radius: 8px;
     padding: 4px 7px;
+    padding-right: 23.9px;
     font-size: 95%;
     opacity: 0.6;
     transition: background-color 0.3s ease, opacity 0.3s ease;
@@ -383,9 +384,7 @@ button:active {
 #regex_toggle:checked::before {
     transform: translateX(16px);
 }
-#mode_section {
-    padding-right: 40px; /* give room for the toggle */
-}
+
 
 label#REGEX {
     display: inline-flex;
