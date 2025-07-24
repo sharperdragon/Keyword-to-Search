@@ -1,5 +1,7 @@
 import { debounce, createDropdown, buildSearchClause, loadLocalStorage} from './utils.js';
 
+const regexToggle = document.getElementById("regex_toggle");
+
 function escapeRegex(term) {
     return term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
@@ -143,25 +145,42 @@ function updateOutput() {
 
     const selectedField = document.getElementById("field_select").value || "Text";
 
+    const toggleWrapper = document.getElementById("regex_toggle_wrapper");
+    if (toggleWrapper) {
+        toggleWrapper.style.display = ["Text", "Front", "Extra"].includes(selectedField) ? "flex" : "none";
+    }
+
+    const useRegex = regexToggle?.checked;
+
     if (!selectedIDs.length) {
         outputText.value = ""; // clear any text
-        if (selectedField === "Text" || selectedField === "Front") {
-            outputText.placeholder = `((${selectedField}:*jo1*) OR (${selectedField}:*antisaccromyces*) OR (${selectedField}:*poopy*))`;
-        } else {
+        if (selectedField === "Text" || selectedField === "Front" || selectedField === "Extra") {
+            outputText.placeholder = useRegex
+                ? `((${selectedField}:re:\\bjo1\\b) OR (${selectedField}:re:\\bantisaccromyces\\b) OR (${selectedField}:re:\\bpoopy\\b))`
+                : `((${selectedField}:*jo1*) OR (${selectedField}:*antisaccromyces*) OR (${selectedField}:*poopy*))`;
+        } else if (selectedField === "CID" || selectedField === "NID") {
             outputText.placeholder = `((${selectedField}:jo1) OR (${selectedField}:antisaccromyces) OR (${selectedField}:poopy))`;
+        } else if (selectedField === "Any") {
+            outputText.placeholder = `((jo1) OR (antisaccromyces) OR (poopy))`;
         }
         return;
     }
     function updatePlaceholderExample(selectedField) {
         const outputBox = document.getElementById("output_text");
         if (!outputBox) return;
-    
+        const useRegex = regexToggle?.checked;
         if (selectedField === "Text") {
-            outputBox.placeholder = "((Text:*jo1*) OR (Text:*antisaccromyces*) OR (Text:*poopy*))";
+            outputBox.placeholder = useRegex
+                ? '((Text:re:\\bjo1\\b) OR (Text:re:\\bantisaccromyces\\b) OR (Text:re:\\bpoopy\\b))'
+                : '((Text:*jo1*) OR (Text:*antisaccromyces*) OR (Text:*poopy*))';
         } else if (selectedField === "Front") {
-            outputBox.placeholder = "((Front:*jo1*) OR (Front:*antisaccromyces*) OR (Front:*poopy*))";
+            outputBox.placeholder = useRegex
+                ? '((Front:re:\\bjo1\\b) OR (Front:re:\\bantisaccromyces\\b) OR (Front:re:\\bpoopy\\b))'
+                : '((Front:*jo1*) OR (Front:*antisaccromyces*) OR (Front:*poopy*))';
         } else if (selectedField === "Extra") {
-            outputBox.placeholder = "((Extra:*jo1*) OR (Extra:*antisaccromyces*) OR (Extra:*poopy*))";
+            outputBox.placeholder = useRegex
+                ? '((Extra:re:\\bjo1\\b) OR (Extra:re:\\bantisaccromyces\\b) OR (Extra:re:\\bpoopy\\b))'
+                : '((Extra:*jo1*) OR (Extra:*antisaccromyces*) OR (Extra:*poopy*))';
         } else if (selectedField === "CID") {
             outputBox.placeholder = "((CID:jo1) OR (CID:antisaccromyces) OR (CID:poopy))";
         } else if (selectedField === "NID") {
@@ -194,7 +213,9 @@ function updateOutput() {
         selectedIDs.forEach(entry => {
             const words = entry.trim().split(/\s+/).map(w => w.trim()).filter(w => w.length > 0);
             if (words.length > 0) {
-                const wordClauses = words.map(w => regexWrap(w, selectedField));
+                const wordClauses = words.map(w =>
+                    useRegex ? regexWrap(w, selectedField) : `"${selectedField}:*${w}*"`
+                );
                 outputParts.push(`(${wordClauses.join(" ")})`);
             }
         });
@@ -270,6 +291,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 option.classList.add("selected_field_option");
         
                 updateOutput();
+
+                const toggleWrapper = document.getElementById("regex_toggle_wrapper");
+                if (toggleWrapper) {
+                    toggleWrapper.style.display = ["Text", "Front", "Extra"].includes(selectedField) ? "flex" : "none";
+                }
         
                 // Ripple effect
                 const ripple = document.createElement("span");
@@ -318,4 +344,18 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
     historyParent.appendChild(clearButton);
+
+    // Restore and store regex toggle state
+    if (regexToggle) {
+        regexToggle.checked = localStorage.getItem("useRegex") === "1";
+        regexToggle.addEventListener("change", () => {
+            localStorage.setItem("useRegex", regexToggle.checked ? "1" : "0");
+            updateOutput();
+        });
+    }
+
+    const toggleWrapper = document.getElementById("regex_toggle_wrapper");
+    if (toggleWrapper) {
+        toggleWrapper.style.display = "none";
+    }
 });

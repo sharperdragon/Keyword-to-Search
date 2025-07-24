@@ -341,3 +341,47 @@ button:active {
         opacity: 0;
     }
 }
+
+#regex_toggle_wrapper {
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+    gap: 6px;
+    font-size: 85%;
+    font-weight: bold;
+}
+
+#regex_toggle {
+    appearance: none;
+    width: 34px;
+    height: 18px;
+    background-color: #ccc;
+    border-radius: 20px;
+    position: relative;
+    outline: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#regex_toggle::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: 1px;
+    top: 1px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+#regex_toggle:checked {
+    background-color: #66a6ff;
+}
+
+#regex_toggle:checked::before {
+    transform: translateX(16px);
+}
+#mode_section {
+    padding-right: 40px; /* give room for the toggle */
+}
