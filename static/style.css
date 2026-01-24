@@ -23,6 +23,8 @@ h1 {
     text-align: center;
     color: #333333;
     padding: 1%;
+    margin-block-end: 0.3rem;
+    margin-block-start: 0.5rem;
 }
 
 label {
