@@ -63,19 +63,19 @@ button {
     border-radius: 15px;
     cursor: pointer;
     font-size: 105%;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    position: relative; /* Lock button in place */
-    box-sizing: border-box; /* Ensure padding and border don't affect size */
-    z-index: 1; /* Ensure hover effects stay above other elements */
+    position: relative; 
+    box-sizing: border-box; 
+    z-index: 1; 
     margin: 10px;
 }
 
-/* Hover effect without shifting elements */
+
 button:hover {
     background-color: #0c66c6;
     color: offwhite;
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     transform: translateY(2px); /* Hover effect without affecting layout */
 }
 
@@ -306,7 +306,6 @@ button:active {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* Make Clear History button a bit smaller and softer */
 #clear_history_button {
     background: linear-gradient(to bottom, #ffffff, #f0f0f5);
     color: #007aff;
@@ -322,7 +321,7 @@ button:active {
 }
 
 #clear_history_button:hover {
-    background: #e5e5ea;
+    background: linear-gradient(to bottom, #ffffff, #fcfcfe);
 }
 
 .ripple {
