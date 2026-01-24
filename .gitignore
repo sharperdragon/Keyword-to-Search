@@ -1,5 +1,21 @@
 .env
-.history/
+.DS_Store
+
 *.env*
 **/.DS_Store
 **/__pycache__
+*/.DS_Store
+/other:bad
+backups/
+backups
+
+/folder/*
+
+# Python cache folders
+*/__pycache__/
+utils/**/*.py[cod]
+utils/**/**/__pycache__/
+utils/**/__pycache__/
+
+.history/*
+.vscode/*
