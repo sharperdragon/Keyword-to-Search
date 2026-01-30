@@ -44,6 +44,7 @@ textarea {
     border-radius: 8px;
     padding: 1%;
     max-width: -webkit-fill-available;
+    font-size: 13px;
 }
 
 /* Fix all divs to maintain consistent height */
