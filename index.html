@@ -3,15 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anki Easy Search</title>
+    <title>Anki Search</title>
     <link rel="stylesheet" href="static/style.css">
     <link rel="icon" href="favicon.png" type="image/png">
 </head>
 <body>
     <div class="container">
-        <!-- Mode Section with Options hover effect -->
+        <h1>Anki Search</h1>
+
+        <div class="tool-mode-switch" role="group" aria-label="Anki search mode">
+            <button type="button" class="tool-mode-button active" data-mode="keyword" aria-pressed="true">Keyword Search</button>
+            <button type="button" class="tool-mode-button" data-mode="uworld" aria-pressed="false">UWorld IDs</button>
+        </div>
+
+        <!-- Keyword field options -->
         <div id="mode_section">
-            <span>Options</span>
+            <span>Fields</span>
             <div class="options_container">
                 <div class="field_option selected_field_option" data-value="Text">Text</div>
                 <div class="field_option" data-value="Front">Front</div>
@@ -29,6 +36,14 @@
                 <option value="Any">*Any*</option>
             </select>
         </div>
+
+        <div id="uworld_source_section" class="exam-options" hidden>
+            <label>Select Form (optional):</label>
+            <button type="button" class="source-btn" data-source="COMLEX" aria-pressed="false">COMLEX</button>
+            <button type="button" class="source-btn" data-source="STEP" aria-pressed="false">STEP</button>
+            <input type="hidden" id="exam_type" value="">
+        </div>
+
         <!-- Regex Toggle -->
         <div id="regex_toggle_wrapper">
             <label id="REGEX">
@@ -36,35 +51,36 @@
                 <span>Use Regex</span>
             </label>
         </div>
-        <h1>Keyword to Anki Search</h1>
+
         <div class="input-history-wrapper sticky-history">
             <!-- Input Field -->
             <div>
-                <label for="input_ids">Keywords (comma-separated):</label>
+                <label id="input_label" for="input_ids">Keywords (comma-separated):</label>
                 <textarea id="input_ids" rows="4" placeholder="e.g., anti-Jo1, coronary artery, BRCA1..."></textarea>
             </div>
 
             <!-- History Dropdown -->
-            <div style="min-width: 220px; max-width: 300px;">
-                <label for="history_select">History:</label>
-                <select id="history_select" style="width: 100%;">
+            <div class="history-controls">
+                <label id="history_label" for="history_select">Keyword history:</label>
+                <select id="history_select">
                     <option value=""> - Select from history - </option>
                 </select>
+                <button type="button" id="clear_history_button">Clear History</button>
             </div>
         </div>
 
         <!-- Buttons for Select All/Deselect All -->
         <div id="selection_buttons">
-            <button id="select_all">Select All</button>
-            <button id="deselect_all">Deselect All</button>
-            <button id="copy_button">Copy to Clipboard</button>
+            <button type="button" id="select_all">Select All</button>
+            <button type="button" id="deselect_all">Deselect All</button>
+            <button type="button" id="copy_button">Copy to Clipboard</button>
         </div>
 
         <!-- Generated Questions -->
         <div id="question_list"></div>
 
         <!-- Output Section -->
-        <label for="output_text">Output <span style="opacity:0.7">(paste into Anki browser)</span></label>
+        <label id="output_label" for="output_text">Output <span style="opacity:0.7">(paste into Anki browser)</span></label>
         <textarea id="output_text" rows="5" readonly></textarea>
     </div>
 

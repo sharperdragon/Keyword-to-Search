@@ -7,6 +7,7 @@ body {
 }
 
 .container {
+    position: relative;
     max-width: 98vw;
     margin: 3% auto;
     padding: 2%;
@@ -25,6 +26,38 @@ h1 {
     padding: 1%;
     margin-block-end: 0.3rem;
     margin-block-start: 0.5rem;
+}
+
+.tool-mode-switch {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 2px auto 12px;
+}
+
+.tool-mode-button {
+    background: #ffffff;
+    color: #1d4f8f;
+    border: 1px solid #bdd5f4;
+    border-radius: 8px;
+    box-shadow: none;
+    font-size: 95%;
+    font-weight: 600;
+    margin: 0;
+    min-width: 132px;
+    justify-content: center;
+}
+
+.tool-mode-button:hover {
+    background-color: #edf5ff;
+    color: #143c6c;
+}
+
+.tool-mode-button.active {
+    background-color: #1f74d5;
+    color: #ffffff;
+    border-color: #1f74d5;
 }
 
 label {
@@ -108,6 +141,11 @@ div#selection_buttons {
     z-index: 200;
 }
 
+#mode_section[hidden],
+#uworld_source_section[hidden] {
+    display: none !important;
+}
+
 #mode_section:hover {
     opacity: 1;
     background-color: #e8f0ff;
@@ -177,6 +215,45 @@ div#selection_buttons {
     font-weight: bold;
 }
 
+.exam-options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 0 0 10px;
+}
+
+.exam-options label {
+    font-weight: 600;
+}
+
+.source-btn {
+    background: #ffffff;
+    color: #1d4f8f;
+    border: 1px solid #bdd5f4;
+    border-radius: 8px;
+    box-shadow: none;
+    font-size: 95%;
+    margin: 0;
+    padding: 8px 12px;
+}
+
+.source-btn:hover {
+    background-color: #edf5ff;
+    color: #143c6c;
+}
+
+.source-btn.active {
+    background-color: #005ecb;
+    color: #ffffff;
+    border-color: #005ecb;
+}
+
+.exam-options input[type="hidden"] {
+    display: none;
+}
+
 
 
 
@@ -216,6 +293,25 @@ div#question_list {
 }
 #question_list label span.id {
     padding-right:4px;
+}
+
+#question_list label.question-label {
+    opacity: 0.55;
+    transition: background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+
+#question_list label.question-label.selected {
+    opacity: 1;
+    border-color: #007bff;
+    background-color: #f1f9ff;
+}
+
+#question_list label.question-label:hover {
+    background-color: #e9f4ff;
+}
+
+#question_list label.question-label input[type="checkbox"] {
+    display: none;
 }
 
 /* Ensures the checkboxes and text are aligned correctly */
@@ -286,6 +382,15 @@ div#history_section > div > select {
     background-color: white;
     padding-top: 4px;
     padding-bottom: 8px;
+}
+
+.history-controls {
+    min-width: 220px;
+    max-width: 420px;
+}
+
+.history-controls #history_select {
+    width: 100%;
 }
 
 .history-feedback {
